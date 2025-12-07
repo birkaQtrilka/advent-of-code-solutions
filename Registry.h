@@ -2,7 +2,7 @@
 #define REGISTRY_H
 
 #include <memory>
-#include "Challenge.h"
+#include "./Exercices/Challenge.h"
 #include <string>
 
 struct ChallengeData {

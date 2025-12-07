@@ -126,30 +126,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Challenge.cpp" />
+    <ClCompile Include="Exercices\Challenge.cpp" />
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="Ex_1.cpp" />
-    <ClCompile Include="Ex_2.cpp" />
-    <ClCompile Include="Ex_3.cpp" />
-    <ClCompile Include="Ex_4.cpp" />
-    <ClCompile Include="Ex_5.cpp" />
-    <ClCompile Include="Ex_6.cpp" />
-    <ClCompile Include="Ex_7.cpp" />
+    <ClCompile Include="Exercices\Ex_1.cpp" />
+    <ClCompile Include="Exercices\Ex_2.cpp" />
+    <ClCompile Include="Exercices\Ex_3.cpp" />
+    <ClCompile Include="Exercices\Ex_4.cpp" />
+    <ClCompile Include="Exercices\Ex_5.cpp" />
+    <ClCompile Include="Exercices\Ex_6.cpp" />
+    <ClCompile Include="Exercices\Ex_7.cpp" />
     <ClCompile Include="generated_registration.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="TriumphIntake.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Challenge.h" />
+    <ClInclude Include="Exercices\Challenge.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="Ex_1.h" />
-    <ClInclude Include="Ex_2.h" />
-    <ClInclude Include="Ex_3.h" />
-    <ClInclude Include="Ex_4.h" />
-    <ClInclude Include="Ex_5.h" />
-    <ClInclude Include="Ex_6.h" />
-    <ClInclude Include="Ex_7.h" />
+    <ClInclude Include="Exercices\Ex_1.h" />
+    <ClInclude Include="Exercices\Ex_2.h" />
+    <ClInclude Include="Exercices\Ex_3.h" />
+    <ClInclude Include="Exercices\Ex_4.h" />
+    <ClInclude Include="Exercices\Ex_5.h" />
+    <ClInclude Include="Exercices\Ex_6.h" />
+    <ClInclude Include="Exercices\Ex_7.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="utils.h" />
@@ -161,6 +161,13 @@
     <ResourceCompile Include="TriumphIntake.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Inputs\Ex_1_input.txt" />
+    <Text Include="Inputs\Ex_2_input.txt" />
+    <Text Include="Inputs\Ex_3_input.txt" />
+    <Text Include="Inputs\Ex_4_input.txt" />
+    <Text Include="Inputs\Ex_5_input.txt" />
+    <Text Include="Inputs\Ex_6_input.txt" />
+    <Text Include="Inputs\Ex_7_input.txt" />
     <Text Include="myConfig.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

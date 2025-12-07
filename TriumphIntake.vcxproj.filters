@@ -18,10 +18,7 @@
     <ClCompile Include="TriumphIntake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Challenge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_1.cpp">
+    <ClCompile Include="Exercices\Challenge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="generated_registration.cpp">
@@ -30,57 +27,39 @@
     <ClCompile Include="Registry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ex_2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_6.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ex_7.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Exercices\Ex_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\Ex_7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Challenge.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_1.h">
+    <ClInclude Include="Exercices\Challenge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Registry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_6.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ex_7.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -90,6 +69,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\Ex_6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -103,5 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="myConfig.txt" />
+    <Text Include="Inputs\Ex_1_input.txt" />
+    <Text Include="Inputs\Ex_2_input.txt" />
+    <Text Include="Inputs\Ex_3_input.txt" />
+    <Text Include="Inputs\Ex_4_input.txt" />
+    <Text Include="Inputs\Ex_5_input.txt" />
+    <Text Include="Inputs\Ex_6_input.txt" />
+    <Text Include="Inputs\Ex_7_input.txt" />
   </ItemGroup>
 </Project>

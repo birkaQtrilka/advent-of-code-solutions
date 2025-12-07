@@ -1,11 +1,11 @@
 #include "Registry.h"
-#include "Ex_1.h";
-#include "Ex_2.h";
-#include "Ex_3.h";
-#include "Ex_4.h";
-#include "Ex_5.h";
-#include "Ex_6.h";
-#include "Ex_7.h";
+#include "./Exercices/Ex_1.h";
+#include "./Exercices/Ex_2.h";
+#include "./Exercices/Ex_3.h";
+#include "./Exercices/Ex_4.h";
+#include "./Exercices/Ex_5.h";
+#include "./Exercices/Ex_6.h";
+#include "./Exercices/Ex_7.h";
 
 void registerClasses() {
 	REGISTER_DERIVED_CLASS(Ex_1, "Inputs/Ex_1_input.txt");

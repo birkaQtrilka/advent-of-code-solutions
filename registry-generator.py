@@ -25,7 +25,7 @@ with open("generated_registration.cpp", "w") as outfile:
                     matches = pattern.findall(content)
                     for match in matches:
                         # Collect the header files for each match
-                        header_files.append(f'"{match}.h"')
+                        header_files.append(f'"./Exercices/{match}.h"')
                         # Collect the registration macros for each match
                         macros.append(f'\tREGISTER_DERIVED_CLASS({match}, "Inputs/{match}_input.txt");')
     

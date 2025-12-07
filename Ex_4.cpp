@@ -18,6 +18,7 @@ the grid, and continue until no rolls remain accessible.
 
 
 #include "Ex_4.h"
+#include "utils.h"
 
 void Ex_4::Run1(ifstream& input)
 {
@@ -74,11 +75,15 @@ void Ex_4::Run2(ifstream& input)
 	vector<Point> availableBounds;
 	vector<Point> toBeRemoved;
 	int count = 0;
+
+	utils::EnterPause();
+
 	do {
 		for (Point& p : toBeRemoved) {
 			grid[p.y][p.x] = '.';
 		}
 		toBeRemoved.clear();
+		utils::DrawGrid(grid, 50);
 		for (int y = 0; y < width; y++)
 		{
 			for (int x = 0; x < width; x++)
@@ -100,6 +105,7 @@ void Ex_4::Run2(ifstream& input)
 		}
 
 	} while (toBeRemoved.size() != 0);
-	
+	utils::EnterPause();
+
 	cout << "Ex_4: " << count << endl;
 }

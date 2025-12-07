@@ -18,6 +18,7 @@
 
 #include "Ex_7.h"
 #include <stack>
+#include "utils.h"
 
 struct Point {
 	int x = 0;
@@ -37,13 +38,13 @@ void Ex_7::Run1(ifstream& input)
 	ops.push({ start, 1});
 	int splitCount = 0;
 	
-	//EnterPause();
+	utils::EnterPause();
 
 	while (!ops.empty()) {
 		Point i = ops.top();
 		ops.pop();
 		grid[i.y][i.x] = '|';
-		//DrawGrid(grid, 1);
+		utils::DrawGrid(grid, 1);
 
 		if (i.y + 1 >= size.y) continue;
 		char down = grid[i.y + 1][i.x];
@@ -118,36 +119,4 @@ void Ex_7::Run2(ifstream& input)
 	cout << "Ex_7 Part 2: " << timelines << endl;
 }
 
-// chat gpt generated VVVV
-void Ex_7::DrawGrid(const vector<string>& grid, int delayMs) {
-	static vector<string> prev;
-	static bool first = true;
 
-	if (first) {
-		cout << "\033[?25l";   // hide cursor
-		prev = grid;
-		first = false;
-	}
-
-	// Move cursor to home
-	cout << "\033[H";
-
-	// Diff-based redraw
-	for (int y = 0; y < (int)grid.size(); y++) {
-		if (y >= prev.size() || grid[y] != prev[y]) {
-			// Move cursor to row y, col 1
-			cout << "\033[" << (y + 1) << ";1H";
-			cout << grid[y];
-		}
-	}
-
-	cout.flush();
-	prev = grid;
-
-	this_thread::sleep_for(chrono::milliseconds(delayMs));
-}
-
-
-void Ex_7::EnterPause() {
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}

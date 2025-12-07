@@ -1,0 +1,2 @@
+testFile,Inputs/Ex_4_input.txt
+drawMode,1

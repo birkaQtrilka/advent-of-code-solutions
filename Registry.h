@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "Challenge.h"
+#include <string>
 
 struct ChallengeData {
     std::unique_ptr<Challenge>(*creator)();
@@ -13,7 +14,7 @@ class Registry {
 public:
     static void registerClass(ChallengeData data);
     static void instantiateAndRun();
-    static void instantiateAndRunLast();
+    static void instantiateAndRunLast(const std::string& file = "");
 };
 
 #define REGISTER_DERIVED_CLASS(Derived, FileName) \

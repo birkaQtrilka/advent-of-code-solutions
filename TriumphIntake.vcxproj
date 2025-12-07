@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Challenge.cpp" />
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="Ex_1.cpp" />
     <ClCompile Include="Ex_2.cpp" />
     <ClCompile Include="Ex_3.cpp" />
@@ -137,9 +138,11 @@
     <ClCompile Include="generated_registration.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="TriumphIntake.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Challenge.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="Ex_1.h" />
     <ClInclude Include="Ex_2.h" />
     <ClInclude Include="Ex_3.h" />
@@ -148,9 +151,17 @@
     <ClInclude Include="Ex_6.h" />
     <ClInclude Include="Ex_7.h" />
     <ClInclude Include="Registry.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="registry-generator.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TriumphIntake.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="myConfig.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

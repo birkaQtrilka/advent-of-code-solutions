@@ -1,7 +1,7 @@
 #include "Ex_8.h"
-
+#include <unordered_map>
+#include <algorithm>
 struct Vec3 {
-	int ID = -1;
 	int x = 0;
 	int y = 0;
 	int z = 0;
@@ -13,96 +13,125 @@ struct Vec3 {
 		int dz = z - other.z;
 		return float(dx * dx + dy * dy + dz * dz);
 	}
+
+  string ToString() {
+    return (to_string(x) + "," + to_string(y) + "," + to_string(z));
+  }
+};
+
+struct DSU {
+private:
+  vector<int> parent;
+	vector<int> size;
+public:
+	DSU(int n) {
+		parent.resize(n);
+		size.resize(n, 1);
+		for (int i = 0; i < n; i++)
+			parent[i] = i;   // each element starts in its own set
+	}
+
+	int find(int i) {
+    if (parent[i] == i) {
+      return i;
+    }
+
+    return find(parent[i]);
+	}
+
+  bool isRoot(int i) {
+    return parent[i] == i;
+	}
+
+  int getSize(int i) {
+    int root = find(i);
+    return size[root];
+	}
+
+	void unite(int a, int b) {
+		a = find(a);
+		b = find(b);
+		if (a == b) return;
+
+		// union by size (attach small group to big group)
+		if (size[a] < size[b])
+			std::swap(a, b);
+
+		parent[b] = a;
+		size[a] += size[b];
+	}
+};
+
+struct Edge {
+	int a_indx;
+	int b_indx;
+	float dist;
 };
 
 void Ex_8::Run1(ifstream& input)
 {
-	vector<Vec3> positions;
-	vector<vector<int>> lookup;
-	int ID = 0;
+  vector<Vec3> positions;
 
-	string line;
-	while (getline(input, line)) {
-			Vec3 pos;
-			sscanf_s(line.c_str(), "%d,%d,%d", &pos.x, &pos.y, &pos.z);
-			positions.push_back(pos);
-	}
-	// on finding nearest position, check if the item has a valid id, 
-	// if not, create it and add both on lookup table
-	// id is also the position in lookup table
-	// if yes, just add the other one to the existing id
-	// put all positions in a lookup table
-	int merges = 0;
-	const int TARGET_MERGES = 10;
-	// instead of checking relative closest distances, we need to find the minimum distance globally
-	while (merges < TARGET_MERGES) {
-		float min = INT_MAX;
-		int min_index_a = -1;
-		int min_index_b = -1;
-		// space partitioning could be used to optimize this search
-		for (size_t i = 0; i < positions.size() - 1; i++) {
-			Vec3& v1 = positions[i];
-			for (size_t j = i + 1; j < positions.size(); j++) {
-				Vec3& v2 = positions[j];
-				if ((v1.ID == -1 || v2.ID == -1 || v2.ID != v1.ID) && v1.DistanceTo(v2) < min) {
-					min = v1.DistanceTo(v2); // need to avoid if they are already linked
-					min_index_a = i;
-					min_index_b = j;
-				}
-			}
-		}
-		if (min_index_a == -1) break; // all others are linked already
-		Vec3& vec_a = positions[min_index_a];
-		Vec3& vec_b = positions[min_index_b];
+  string line;
+  while (getline(input, line)) {
+    int x, y, z;
+    if (sscanf_s(line.c_str(), "%d,%d,%d", &x, &y, &z) == 3) {
+      positions.push_back({ x, y, z });
+    }
+  }
 
+  /*for (size_t i = 0; i < positions.size(); i++)
+  {
+    cout<<positions[i].ToString() << endl;
+  }*/
 
-		if (vec_b.ID == -1) {
-			// need to check if vec_a has id or not
-			if(vec_a.ID == -1) {
-				// create new ID
-				vec_a.ID = ID;
-				vec_b.ID = ID;
-				lookup.push_back(vector<int>{ min_index_a, min_index_b });
-				merges++;
-				ID++;
-			}
-			else {
-				// assign vec_b the vec_a ID
-				vec_b.ID = vec_a.ID;
-				lookup[vec_a.ID].push_back(min_index_b);
-				merges++;
-			}
+  int n = positions.size();
+  DSU dsu(n);
 
-		}
-		else {
-			// if position[i] doesn't have an ID, assign it the min_index ID
-			// if it does and is different,merge the two groups
-			// if it does and is same ID as min_index, do nothing
+  vector<Edge> edges;
+  edges.reserve(n * (n - 1) / 2);
 
-			if (vec_a.ID == -1) {
-				vec_a.ID = vec_b.ID;
-				lookup[vec_b.ID].push_back(min_index_a);
-				merges++;
-			}
-			else if (vec_a.ID != vec_b.ID) {
-				auto& arr1 = lookup[vec_a.ID];
-				auto& arr2 = lookup[vec_b.ID];
-				// reassigning IDs
-				for (int idx : arr2) {
-					positions[idx].ID = vec_a.ID;
-				}
-				// merging
-				arr1.insert(arr1.end(), arr2.begin(), arr2.end());
-				arr2.clear();
-				merges++;
-			}
-		}
-	}
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = i + 1; j < n; j++) {
+      float d2 = positions[i].DistanceTo(positions[j]);
+      edges.push_back({ i, j, d2 });
+    }
+  }
 
+  sort(edges.begin(), edges.end(),
+    [](const Edge& a, const Edge& b) { return a.dist < b.dist; });
 
-	cout << "Ex_8: " << lookup.size() << endl;
+  // ---- Process the first N connections ----
+  int TARGET_CONNECTIONS = 10; // or 10 for sample
+  int connections = 0;
+
+  for (const Edge& e : edges) {
+    if (connections == TARGET_CONNECTIONS) break;
+
+    connections++;
+    // for testing 
+    /*cout << "Uniting "
+      << positions[e.a_indx].ToString() 
+      << " with " 
+      << positions[e.b_indx].ToString() 
+      << endl;*/
+    dsu.unite(e.a_indx, e.b_indx);
+  }
+
+  vector<int> sizes;
+  sizes.reserve(1000);
+
+  for (int i = 0; i < n; i++) {
+    bool r = dsu.isRoot(i);
+		if (r) sizes.push_back(dsu.getSize(i));
+  }
+
+  sort(sizes.begin(), sizes.end(), greater<int>());
+
+  long long result = 1LL * sizes[0] * sizes[1] * sizes[2];
+
+  cout << "Answer = " << result << endl;
 }
-//https://chatgpt.com/c/693683ba-2760-8329-a046-c0ba30d77904
 void Ex_8::Run2(ifstream& input)
 {
 }

@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include <algorithm>
 #include <array>
+#include <queue>
+
 struct Vec3 {
 	int x = 0;
 	int y = 0;
@@ -25,6 +27,10 @@ struct Edge {
   int a_indx;
   int b_indx;
   long long dist;
+
+  bool operator<(const Edge& other) const {
+    return dist < other.dist;
+  }
 };
 
 struct DSU {
@@ -36,31 +42,30 @@ public:
 		parent.resize(n);
 		size.resize(n, 1);
 		for (int i = 0; i < n; i++)
-			parent[i] = i;   // each element starts in its own set
+			parent[i] = i;
 	}
 
-  int find(int i) {
+  int Find(int i) {
     if (parent[i] != i)
-      parent[i] = find(parent[i]);
+      parent[i] = Find(parent[i]);
     return parent[i];
   }
 
 
-  bool isRoot(int i) {
+  bool IsRoot(int i) {
     return parent[i] == i;
 	}
 
-  int getSize(int i) {
-    int root = find(i);
+  int GroupSize(int i) {
+    int root = Find(i);
     return size[root];
 	}
 
-	bool unite(int a, int b) {
-		a = find(a);
-		b = find(b);
+	bool Unite(int a, int b) {
+		a = Find(a);
+		b = Find(b);
 		if (a == b) return false;
 
-		// union by size (attach small group to big group)
 		if (size[a] < size[b])
 			std::swap(a, b);
 
@@ -70,7 +75,7 @@ public:
 	}
 };
 
-void Ex_8::Run1(ifstream& input)
+void Ex_8::Run2(ifstream& input)
 {
   vector<Vec3> positions;
 
@@ -81,11 +86,6 @@ void Ex_8::Run1(ifstream& input)
       positions.push_back({ x, y, z });
     }
   }
-
-  /*for (size_t i = 0; i < positions.size(); i++)
-  {
-    cout<<positions[i].ToString() << endl;
-  }*/
 
   int n = positions.size();
   DSU dsu(n);
@@ -103,29 +103,21 @@ void Ex_8::Run1(ifstream& input)
   sort(edges.begin(), edges.end(),
     [](const Edge& a, const Edge& b) { return a.dist < b.dist; });
 
-  // ---- Process the first N connections ----
-  int TARGET_CONNECTIONS = edges.size() > 20 ? 1000 : 1000; // or 10 for sample
+  int TARGET_CONNECTIONS = edges.size() > 20 ? 1000 : 1000; // 1000 for solution or 10 for sample
   int connections = 0;
 
   for (const Edge& e : edges) {
     if (connections == TARGET_CONNECTIONS) break;
 
-    // for testing 
-    /*cout << "Uniting "
-      << positions[e.a_indx].ToString() 
-      << " with " 
-      << positions[e.b_indx].ToString() 
-      << endl;*/
-      connections++;
-    if( dsu.unite(e.a_indx, e.b_indx)) {
-    }
+    connections++;
+    dsu.Unite(e.a_indx, e.b_indx);
   }
 
   array<int, 3> sizes{0,0,0};
   for (int i = 0; i < n; i++) {
-    bool r = dsu.isRoot(i);
+    bool r = dsu.IsRoot(i);
     if (!r) continue;
-    int size = dsu.getSize(i);
+    int size = dsu.GroupSize(i);
     for (size_t j = 0; j < 3; j++) {
       if (size <= sizes[j]) continue;
       // shifting
@@ -145,6 +137,75 @@ void Ex_8::Run1(ifstream& input)
 
   cout << "Answer = " << result << endl;
 }
-void Ex_8::Run2(ifstream& input)
+
+void Ex_8::Run1(ifstream& input)
 {
+  vector<Vec3> positions;
+
+  string line;
+  while (getline(input, line)) {
+    int x, y, z;
+    if (sscanf_s(line.c_str(), "%d,%d,%d", &x, &y, &z) == 3) {
+      positions.push_back({ x, y, z });
+    }
+  }
+  int TARGET_CONNECTIONS = 1000; // 1000 for solution or 10 for sample
+  int n = positions.size();
+  priority_queue<Edge> pq;
+
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = i + 1; j < n; j++) {
+      long long d2 = positions[i].DistanceTo(positions[j]);
+
+      if (pq.size() < TARGET_CONNECTIONS) {
+        pq.push({ i, j, d2 });
+      }
+      else if (d2 < pq.top().dist) {
+        // If this edge is smaller than the worst edge in our top list,
+        // swap them out.
+        pq.pop();
+        pq.push({ i, j, d2 });
+      }
+    }
+  }
+
+  vector<Edge> best_edges;
+  best_edges.reserve(TARGET_CONNECTIONS);
+  while (!pq.empty()) {
+    best_edges.push_back(pq.top());
+    pq.pop();
+  }
+
+  DSU dsu(n);
+  int connections = 0;
+  for (const Edge& e : best_edges) {
+    //if (connections == TARGET_CONNECTIONS) break;
+    connections++;
+    dsu.Unite(e.a_indx, e.b_indx);
+  }
+
+  array<int, 3> sizes{ 0,0,0 };
+  // getting 3 highest sets
+  for (int i = 0; i < n; i++) {
+    bool r = dsu.IsRoot(i);
+    if (!r) continue;
+    int size = dsu.GroupSize(i);
+    for (size_t j = 0; j < 3; j++) {
+      if (size <= sizes[j]) continue;
+      // shifting
+      int prevTemp = size;
+      for (size_t k = j; k < 3; k++)
+      {
+        int temp = sizes[k];
+        sizes[k] = prevTemp;
+        prevTemp = temp;
+      }
+      break;
+    }
+  }
+
+
+  long long result = 1LL * sizes[0] * sizes[1] * sizes[2];
+
+  cout << "Answer = " << result << endl;
 }

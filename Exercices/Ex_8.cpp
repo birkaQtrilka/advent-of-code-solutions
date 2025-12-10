@@ -102,44 +102,26 @@ void Ex_8::Run2(ifstream& input)
 
   sort(edges.begin(), edges.end(),
     [](const Edge& a, const Edge& b) { return a.dist < b.dist; });
-
-  int TARGET_CONNECTIONS = edges.size() > 20 ? 1000 : 1000; // 1000 for solution or 10 for sample
-  int connections = 0;
-
+  int last_a = 0;
+  int last_b = 0;
   for (const Edge& e : edges) {
-    if (connections == TARGET_CONNECTIONS) break;
 
-    connections++;
     dsu.Unite(e.a_indx, e.b_indx);
-  }
-
-  array<int, 3> sizes{0,0,0};
-  for (int i = 0; i < n; i++) {
-    bool r = dsu.IsRoot(i);
-    if (!r) continue;
-    int size = dsu.GroupSize(i);
-    for (size_t j = 0; j < 3; j++) {
-      if (size <= sizes[j]) continue;
-      // shifting
-      int prevTemp = size;
-      for (size_t k = j; k < 3; k++)
-      {
-				int temp = sizes[k];
-        sizes[k] = prevTemp;
-        prevTemp = temp;
-      }
+    if (dsu.GroupSize(dsu.Find(e.a_indx)) == n) {
+      last_a = e.a_indx;
+      last_b = e.b_indx;
       break;
     }
   }
 
 
-  long long result = 1LL * sizes[0] * sizes[1] * sizes[2];
-
+  long long result = 1LL * positions[last_a].x * positions[last_b].x;
   cout << "Answer = " << result << endl;
 }
 
 void Ex_8::Run1(ifstream& input)
 {
+  return;
   vector<Vec3> positions;
 
   string line;

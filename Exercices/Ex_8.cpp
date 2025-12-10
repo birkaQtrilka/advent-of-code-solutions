@@ -51,7 +51,6 @@ public:
     return parent[i];
   }
 
-
   bool IsRoot(int i) {
     return parent[i] == i;
 	}
@@ -116,12 +115,11 @@ void Ex_8::Run2(ifstream& input)
 
 
   long long result = 1LL * positions[last_a].x * positions[last_b].x;
-  cout << "Answer = " << result << endl;
+  cout << "Ex_8 (b): " << result << endl;
 }
 
 void Ex_8::Run1(ifstream& input)
 {
-  return;
   vector<Vec3> positions;
 
   string line;
@@ -189,5 +187,5 @@ void Ex_8::Run1(ifstream& input)
 
   long long result = 1LL * sizes[0] * sizes[1] * sizes[2];
 
-  cout << "Answer = " << result << endl;
+  cout << "Ex_8: " << result << endl;
 }

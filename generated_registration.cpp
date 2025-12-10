@@ -7,6 +7,7 @@
 #include "./Exercices/Ex_6.h";
 #include "./Exercices/Ex_7.h";
 #include "./Exercices/Ex_8.h";
+#include "./Exercices/Ex_9.h";
 
 void registerClasses() {
 	REGISTER_DERIVED_CLASS(Ex_1, "Inputs/Ex_1_input.txt");
@@ -17,5 +18,6 @@ void registerClasses() {
 	REGISTER_DERIVED_CLASS(Ex_6, "Inputs/Ex_6_input.txt");
 	REGISTER_DERIVED_CLASS(Ex_7, "Inputs/Ex_7_input.txt");
 	REGISTER_DERIVED_CLASS(Ex_8, "Inputs/Ex_8_input.txt");
+	REGISTER_DERIVED_CLASS(Ex_9, "Inputs/Ex_9_input.txt");
 
 }

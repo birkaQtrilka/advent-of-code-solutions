@@ -50,26 +50,24 @@ void Ex_10::AnalyzeLine(const string& line)
     });
   // brute force all combinations
   uint32_t current = 0;
-  cout << "Combining: " << endl << endl;
 
   for (size_t i = 0; i < round.size() - 1; i++) {
-    current ^= round[i];
-    cout << i << " :    " << ToBitString(current) << endl;
-    for (size_t j = i + 1; j < round.size(); j++) {
-      current ^= round[j];
-      cout << "+ " << j << " =  " << ToBitString(current) << endl;
+    current ^= round[i]; 
+		int guess = current ^ target;
+    //cout << "Current: "<<endl << ToBitString(current) << endl;
+    //cout << "Guess: "<<endl << ToBitString(guess) << endl;
 
-      if (current == target) {
+    // use bfs to 
+    for (size_t j = i + 1; j < round.size(); j++) {
+
+      if (round[j] == guess) {
 				cout << "FOUND with buttons: " << i << " and " << j << endl;
         return;
       }
-      // clear for next
-      current ^= round[j];
     }
-    cout << "----" << endl;
-    current ^= round[i];
-
+    current ^= round[i];//look for the guess
   }
+
 }
 
 void Ex_10::Run2(ifstream& input)

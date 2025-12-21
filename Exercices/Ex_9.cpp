@@ -6,7 +6,6 @@
 
 void Ex_9::Run1(ifstream& input)
 {
-  return;
   vector<Vec2> positions;
 
   string line;

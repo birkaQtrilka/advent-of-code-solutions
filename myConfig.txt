@@ -1,2 +1,2 @@
 testFile,Inputs/Ex__input.txt
-drawMode,1
+drawMode,0

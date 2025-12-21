@@ -18,7 +18,7 @@ public:
 	string ToBitString(uint32_t value);
 
 	void Run1(ifstream& input) override;
-	void AnalyzeLine(const string& line);
+	int AnalyzeLine(const string& line);
 	void Run2(ifstream& input) override;
 	void ForEachContent(const string& line, const string& s, const string& e, const function<void(const string&)>& callback);
 	void GetNumber(string& content, const function<void(int)>& callback);

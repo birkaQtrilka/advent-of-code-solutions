@@ -1,6 +1,7 @@
 #include "Ex_10.h"
 #include <regex>
 #include <sstream>
+#include <queue>
 
 void Ex_10::Toggle(uint32_t& bits, int i) {
   bits ^= (1u << i);
@@ -20,54 +21,75 @@ string Ex_10::ToBitString(uint32_t value) {
 void Ex_10::Run1(ifstream& input)
 {
 	string line;
+	int total = 0;
 	while(getline(input, line))
 	{
-		AnalyzeLine(line);
-		cout << endl << "===================" << endl << endl;
+		total += AnalyzeLine(line);
+		//cout << endl << "===================" << endl << endl;
   }
-
+	cout << "Ex_10: " << total << endl;
 }
-
-void Ex_10::AnalyzeLine(const string& line)
+struct Combination {
+  vector<uint32_t> buttons;
+  int start;
+  uint32_t result;
+	//vector<int> buttonIndexes_debug;
+};
+int Ex_10::AnalyzeLine(const string& line)
 {
   uint32_t target = 0;
   vector<uint32_t> round;
-  cout << "Target: " << endl;
+  //cout << "Target: " << endl;
   ForEachContent(line, "[", "]", [&](string r) {
     for (size_t i = 0; i < r.size(); i++) {
       if (r[i] == '#') Toggle(target, i);
     }
-    cout << ToBitString(target) << endl;
+    //cout << ToBitString(target) << endl;
     });
-  cout << "Buttons: " << endl;
+  //cout << "Buttons: " << endl;
 
   ForEachContent(line, "(", ")", [&](string r) {
     round.push_back(0);
     GetNumber(r, [&](int n) {
       Toggle(round.back(), n);
-      });
-    cout << ToBitString(round.back()) << endl;
     });
-  // brute force all combinations
-  uint32_t current = 0;
+    //cout << ToBitString(round.back()) << " : " << round.back() << endl;
+    });
+  // use bfs 
+  queue<Combination> q;
 
-  for (size_t i = 0; i < round.size() - 1; i++) {
-    current ^= round[i]; 
-		int guess = current ^ target;
-    //cout << "Current: "<<endl << ToBitString(current) << endl;
-    //cout << "Guess: "<<endl << ToBitString(guess) << endl;
+  q.push({ {}, 0, 0/*, {} */});
+  while (!q.empty()) {
+    Combination node = q.front();
+    q.pop();
+    uint32_t guess = node.result ^ target;
 
-    // use bfs to 
-    for (size_t j = i + 1; j < round.size(); j++) {
+		string nodeStr = ToBitString(node.result);
+		string guessStr = ToBitString(guess);
 
-      if (round[j] == guess) {
-				cout << "FOUND with buttons: " << i << " and " << j << endl;
-        return;
+    for (int i = node.start; i < round.size(); i++) {
+      if ((node.result ^ round[i]) == target) {
+        /*cout << "FOUND with buttons: ";
+        for (auto& x : node.buttonIndexes_debug){
+					cout << x << " ";
+        }
+				cout << i << endl;
+				cout << "Result: " << endl << ToBitString(node.result ^ round[i]) << endl;*/
+        //cout  << node.buttons.size()
+				return node.buttons.size() + 1;
       }
-    }
-    current ^= round[i];//look for the guess
-  }
+			vector<uint32_t> copy = node.buttons;
+			//vector<int> copy_indexes = node.buttonIndexes_debug;
+			copy.push_back(round[i]);
+      //copy_indexes.push_back(i);
+			uint32_t r = node.result ^ round[i];
 
+			//string rStr = ToBitString(r);
+      
+      q.push({ copy, i + 1, r/*, copy_indexes*/ });
+    }
+  }
+	return 0;
 }
 
 void Ex_10::Run2(ifstream& input)

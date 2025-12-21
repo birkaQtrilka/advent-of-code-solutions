@@ -50,13 +50,76 @@ void Ex_9::AvailableBounds(int x, int y, int maxX, int maxY, vector<Vec2>& out)
 
 struct Rect {
   Vec2 min;
-  Vec2 max;
+	Vec2 max;
 	long long area;
 
   bool operator<(const Rect& other) const {
     return area < other.area;
   }
 };
+class PointData {
+  public:
+    bool inside = false;
+    bool onSegment = false;
+		Vec2 p;
+		PointData(Vec2 point) : p(point) {}
+};
+bool Ex_9::IsRectInPolygon(Rect r, const std::vector<Vec2>& poly) {
+  int n = poly.size();
+
+  vector<PointData> points{
+    PointData(r.min),
+    PointData(r.max),
+    PointData({r.min.x, r.max.y}),
+    PointData({r.max.x, r.min.y}),
+  };
+
+  for (int i = 0, j = n - 1; i < n; j = i++) {
+    Vec2 a = poly[i];
+		Vec2 b = poly[j];
+    for (int i = points.size() - 1; i >= 0; i--)
+    {
+			PointData& pointData = points[i];
+      if(pointData.onSegment) continue;
+
+      if(OnSegment(pointData.p, a, b)) {
+        pointData.onSegment = true;
+        pointData.inside = true;
+        continue;
+			}
+
+      IsPointInPolygon(pointData.p, a, b, pointData.inside);
+
+    }
+    
+  }
+
+  return std::all_of(points.begin(), points.end(),
+    [](const PointData& p) {
+      return p.inside;
+    });
+}
+// 4630762112 too high
+bool Ex_9::OnSegment(Vec2 p, Vec2 a, Vec2 b) {
+  // Case 1: Vertical Edge (Same Column)
+  if (a.x == b.x) {
+    if (p.x != a.x) return false; // Not in same column
+    return p.y >= std::min(a.y, b.y) && p.y <= std::max(a.y, b.y);
+  }
+
+  if (p.y != a.y) return false; // Not in same row
+  return p.x >= std::min(a.x, b.x) && p.x <= std::max(a.x, b.x);
+}
+
+void Ex_9::IsPointInPolygon(Vec2 p, Vec2 a, Vec2 b, bool& inside) {
+  if (
+		  a.x == b.x && // vertical edge
+      ((a.y > p.y) != (b.y > p.y)) && // between y of a and b
+      p.x < a.x // to the left of the edge (a crossing)
+    ) {
+    inside = !inside;
+  }
+}
 
 void Ex_9::Run2(ifstream& input)
 {
@@ -69,14 +132,6 @@ void Ex_9::Run2(ifstream& input)
 
     positions.push_back({ x, y });
   }
-  // three for loops
-	// loop 1-2 - go through all pairs of points
-	// make rectangle
-  // 
-	// loop 3 - check if any other point is inside the rectangle formed by the pair
-
-  
-
   std::priority_queue<Rect> pq;
 
 	long long smallestArea = INT_MAX;
@@ -100,30 +155,14 @@ void Ex_9::Run2(ifstream& input)
     }
   }
   long long best = -1;
-
-  /*while (!pq.empty()) {
-    Rect rect = pq.top();
-    pq.pop();
-		cout << "Rect: (" << rect.min.x << "," << rect.min.y << ") -> (" << rect.max.x << "," << rect.max.y << ") Area: " << rect.area << endl;
-  }
-  return;*/
   while (!pq.empty()) {
     Rect rect = pq.top();
+    /*if(rect.area == 24) {
+			cout << "";
+		}*/
     pq.pop();
-		bool hasInside = false;
-    for (size_t k = 0; k < positions.size(); ++k)
-    {
-      if(rect.area == 40) {
-        cout << "aaa";
-			}
-      Vec2 p = positions[k];
-      if(p.x > rect.min.x && p.x < rect.max.x &&
-          p.y >  rect.min.y && p.y < rect.max.y) {
-				hasInside = true;
-        break;
-			}
-    }
-    if (!hasInside) {
+		
+    if (IsRectInPolygon(rect, positions)) {
 			best = rect.area;
       break;
     }
@@ -131,4 +170,6 @@ void Ex_9::Run2(ifstream& input)
 
   cout << "Ex_9 (b): " << best << endl;
 }
+
+
 

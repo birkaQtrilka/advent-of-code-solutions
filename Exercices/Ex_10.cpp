@@ -3,28 +3,6 @@
 #include <sstream>
 #include <queue>
 
-struct Combination {
-  int start;
-  int depth;
-  uint32_t result;
-};
-
-
-void Ex_10::Toggle(uint32_t& bits, int i) {
-  bits ^= (1u << i);
-}
-
-string Ex_10::ToBitString(uint32_t value) {
-  string result;
-  result.reserve(32);
-
-  for (int i = 31; i >= 0; --i) {
-    result.push_back(((value >> i) & 1u) ? '1' : '0');
-  }
-
-  return result;
-}
-
 void Ex_10::Run1(ifstream& input)
 {
 	string line;
@@ -44,14 +22,14 @@ int Ex_10::AnalyzeLine(const string& line)
     for (size_t i = 0; i < r.size(); i++) {
       if (r[i] == '#') Toggle(target, i);
     }
-    });
+  });
 
   ForEachContent(line, "(", ")", [&](string r) {
     schematics.push_back(0);
     GetNumber(r, [&](int n) {
       Toggle(schematics.back(), n);
     });
-    });
+  });
   queue<Combination> q;
   q.push({ 0, 0, 0 });
 
@@ -73,8 +51,42 @@ int Ex_10::AnalyzeLine(const string& line)
 	return 0;
 }
 
+struct Button {
+  int maxPresses;
+  vector<int> affects;
+};
+
 void Ex_10::Run2(ifstream& input)
 {
+  string line;
+  int total = 0;
+  while (getline(input, line))
+  {
+    vector<Button> schematics;
+    vector<int> target;
+
+    ForEachContent(line, "{", "}", [&](string r) {
+      GetNumber(r, [&](int n) {
+				target.push_back(n);
+      });
+    });
+
+    ForEachContent(line, "(", ")", [&](string r) {
+			Button btn;
+      GetNumber(r, [&](int n) {
+				btn.affects.push_back(n);
+      });
+			// Determine max presses for this button
+			int min = INT_MAX;
+      for (auto& i : btn.affects) {
+				min = std::min(min, target[i]);
+      }
+			btn.maxPresses = min;
+      schematics.push_back(move(btn));
+
+    });
+  }
+  cout << "Ex_10: " << total << endl;
 }
 
 void Ex_10::ForEachContent(
@@ -100,7 +112,6 @@ void Ex_10::ForEachContent(
   }
 }
 
-
 void Ex_10::GetNumber(string& content, const function<void(int)>& callback)
 {
   string token;
@@ -109,4 +120,19 @@ void Ex_10::GetNumber(string& content, const function<void(int)>& callback)
   while (getline(ss, token, ',')) {
 		callback(stoi(token));
   }
+}
+
+void Ex_10::Toggle(uint32_t& bits, int i) {
+  bits ^= (1u << i);
+}
+
+string Ex_10::ToBitString(uint32_t value) {
+  string result;
+  result.reserve(32);
+
+  for (int i = 31; i >= 0; --i) {
+    result.push_back(((value >> i) & 1u) ? '1' : '0');
+  }
+
+  return result;
 }

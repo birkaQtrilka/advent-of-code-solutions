@@ -9,6 +9,12 @@
 #include <cstdint>
 using namespace std;
 
+struct Combination {
+	int start;
+	int depth;
+	uint32_t result;
+};
+
 class Ex_10 : public Challenge
 {
 public:

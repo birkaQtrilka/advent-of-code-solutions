@@ -1,3 +1,4 @@
+#pragma once
 #include "Ex_10.h"
 #include <regex>
 #include <sstream>
@@ -83,50 +84,62 @@ int Ex_10::AnalyzeLine2(const string& line)
     });
     schematics.push_back(move(btn));
     });
-  int minPresses;
 
-
-  priority_queue<Combination2> q;
-  unordered_map<VecN, int, VecNHash> visited;
+  priority_queue<Node> q;
+  unordered_map<VecN, int, VecNHash> dist;
   int dimensions = target.size();
   VecN startPos = { dimensions };
   q.push({ 0, startPos});
-  visited[startPos] = 0;
+  dist[startPos] = 0;
 
   while (!q.empty()) {
-    //neighbours are all buttons
-    Combination2 top = q.top();
+    Node top = q.top();
     q.pop();
 
     int minToStart = top.distanceToStart;
-    VecN minNode = top.pos;
+    VecN& minNode = top.pos;
+
+    auto itr = dist.find(minNode);
+
+    if (itr != dist.end() && minToStart > itr->second) {
+      continue;
+    }
+
+    if (minNode.Equals(target)) return minToStart;
 
     // problem here is that nodes represent positions, but I have displacements
     for (size_t i = 0; i < schematics.size(); i++)
     {
-      // w is spacial distance, so making connection dynamically
+      // w is number of presses, which is 1 every time
       VecN connection = minNode;
-      for (size_t j = 0; j < schematics[i].affects.size(); j++) {
-        connection.data[j]++;
+      bool prune = false;
+      for (int idx : schematics[i].affects) {
+        connection.data[idx]++;
+        if (connection.data[idx] > target[idx]) {
+          prune = true;
+          break;
+        }
       }
+      if (prune) continue;
       int distanceToStart = 1 + minToStart;
       // heuristics
 
-      auto it = visited.find(connection);
+      auto it = dist.find(connection);
 
-      if (it == visited.end()) {
+      if (it == dist.end()) {
         q.push({ distanceToStart, connection });
-        visited[connection] = distanceToStart;
+        dist[connection] = distanceToStart;
         continue;
       }
 
-      bool pathIsNotCloser = it->second <= distanceToStart /*+ heuristics*/;
+      bool pathIsNotCloser = it->second < distanceToStart /*+ heuristics*/;
       if (pathIsNotCloser) continue;
+      q.push({ distanceToStart, connection });
       it->second = distanceToStart;
     }
   }
 
-  return minPresses;
+  return -1;
 }
 
 void Ex_10::ForEachContent(

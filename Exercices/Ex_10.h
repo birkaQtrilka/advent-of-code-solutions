@@ -31,23 +31,17 @@ struct VecN {
 		data = vector<int>(size, 0);
 	}
 
-	int euclideanDistance(const VecN& other) const {
-
-		int sum = 0;
-		for (size_t i = 0; i < data.size(); ++i) {
-			int diff = data[i] - other.data[i];
-			sum += diff * diff;
+	bool Equals(const VecN& other) const {
+		for (size_t i = 0; i < data.size(); i++) {
+			if (data[i] != other.data[i])return false;
 		}
-		return sum;
+		return true;
 	}
-
-	int manhattanDistance(const VecN& other) const {
-
-		int sum = 0;
-		for (size_t i = 0; i < data.size(); ++i) {
-			sum += std::abs(data[i] - other.data[i]);
+	bool Equals(const vector<int>& other) const {
+		for (size_t i = 0; i < data.size(); i++) {
+			if (data[i] != other[i])return false;
 		}
-		return sum;
+		return true;
 	}
 };
 
@@ -60,9 +54,14 @@ struct VecNHash {
 		return seed;
 	}
 };
-struct Combination2 {
+
+struct Node {
 	int distanceToStart = 0;
 	VecN pos;
+
+	bool operator<(const Node& other) const {
+		return distanceToStart > other.distanceToStart; // to make it into a min_heap
+	}
 };
 
 class Ex_10 : public Challenge

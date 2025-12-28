@@ -20,11 +20,49 @@ struct Button {
 	vector<int> affects;
 };
 
+struct VecN {
+	std::vector<int> data;
+
+	bool operator==(const VecN& other) const {
+		return data == other.data;
+	}
+
+	VecN(int size) {
+		data = vector<int>(size, 0);
+	}
+
+	int euclideanDistance(const VecN& other) const {
+
+		int sum = 0;
+		for (size_t i = 0; i < data.size(); ++i) {
+			int diff = data[i] - other.data[i];
+			sum += diff * diff;
+		}
+		return sum;
+	}
+
+	int manhattanDistance(const VecN& other) const {
+
+		int sum = 0;
+		for (size_t i = 0; i < data.size(); ++i) {
+			sum += std::abs(data[i] - other.data[i]);
+		}
+		return sum;
+	}
+};
+
+struct VecNHash {
+	size_t operator()(const VecN& v) const noexcept {
+		size_t seed = v.data.size();
+		for (int x : v.data) {
+			seed ^= std::hash<int>{}(x)+0x9e3779b97f4a7c15ULL + (seed << 6) + (seed >> 2);
+		}
+		return seed;
+	}
+};
 struct Combination2 {
-	int start;
-	//uint32_t affectedButtons;
-	int presses;
-	vector<int> result;
+	int distanceToStart = 0;
+	VecN pos;
 };
 
 class Ex_10 : public Challenge

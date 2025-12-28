@@ -2,6 +2,8 @@
 #include <regex>
 #include <sstream>
 #include <queue>
+#include <stack>
+#include <unordered_map>
 
 void Ex_10::Run1(ifstream& input)
 {
@@ -73,66 +75,54 @@ int Ex_10::AnalyzeLine2(const string& line)
       target.push_back(n);
       });
     });
-  // setting touched state of each battery
-  // 0..000011..n
-  uint32_t activeBats = (1 << target.size()) - 1;
 
   ForEachContent(line, "(", ")", [&](string r) {
     Button btn;
     GetNumber(r, [&](int n) {
       btn.affects.push_back(n);
-      //Toggle(btn.mask, n);
     });
-    // Determine max presses for this button
-    int min = INT_MAX;
-    for (auto& i : btn.affects) {
-      min = std::min(min, target[i]);
-    }
-    btn.maxPresses = min;
     schematics.push_back(move(btn));
     });
-  queue<Combination2> q;
-  vector<int> r;
-  r.assign(target.size(), 0);
-  q.push({0,0,move(r)});
+  int minPresses;
 
-  int minPresses = INT_MAX;
+
+  priority_queue<Combination2> q;
+  unordered_map<VecN, int, VecNHash> visited;
+  int dimensions = target.size();
+  VecN startPos = { dimensions };
+  q.push({ 0, startPos});
+  visited[startPos] = 0;
 
   while (!q.empty()) {
-    Combination2 node = q.front();
+    //neighbours are all buttons
+    Combination2 top = q.top();
     q.pop();
-    if (node.presses > minPresses) continue;
 
-    for (int i = node.start; i < (int)schematics.size(); i++) {
-      //uint32_t r = node.affectedButtons & ~schematics[i].mask;// 0100 + 0100 -> 0000, 0100 + 0010 -> 0100
+    int minToStart = top.distanceToStart;
+    VecN minNode = top.pos;
 
-      //if (r != 0) {// checking if combination touches all batteries
-      //  if (node.presses + 1 > minPresses) continue;
-      //  continue;
-      //}
-
-      for (int j = 1; j <= schematics[i].maxPresses; j++)
-      {
-        if (node.presses + j > minPresses) continue;
-
-        vector<int> r = node.result;
-        for (size_t k = 0; k < schematics[i].affects.size(); k++){
-          int index = schematics[i].affects[k];
-          r[index] = node.result[index] + j;
-        }
-        bool same = true;
-        bool invalid = false;
-        for (size_t k = 0; k < target.size(); k++) {
-          if (r[k] > target[k]) {
-            invalid = true;
-            break;
-          }if (r[k] == target[k]) continue;
-          same = false;
-        }
-        if (same) minPresses = node.presses + j;
-        else q.push({ i + 1, (node.presses + j), move(r) });
-
+    // problem here is that nodes represent positions, but I have displacements
+    for (size_t i = 0; i < schematics.size(); i++)
+    {
+      // w is spacial distance, so making connection dynamically
+      VecN connection = minNode;
+      for (size_t j = 0; j < schematics[i].affects.size(); j++) {
+        connection.data[j]++;
       }
+      int distanceToStart = 1 + minToStart;
+      // heuristics
+
+      auto it = visited.find(connection);
+
+      if (it == visited.end()) {
+        q.push({ distanceToStart, connection });
+        visited[connection] = distanceToStart;
+        continue;
+      }
+
+      bool pathIsNotCloser = it->second <= distanceToStart /*+ heuristics*/;
+      if (pathIsNotCloser) continue;
+      it->second = distanceToStart;
     }
   }
 

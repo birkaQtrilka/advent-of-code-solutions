@@ -1,5 +1,5 @@
 
-/*Part One – Find IDs made of a repeated two-part pattern
+/*Part One ï¿½ Find IDs made of a repeated two-part pattern
 
 You are given several numeric ID ranges.
 An ID is considered invalid if it consists of some sequence of digits repeated exactly twice
@@ -7,7 +7,7 @@ An ID is considered invalid if it consists of some sequence of digits repeated e
 
 --> How many invalid IDs (sum of their numeric values) appear in all given ranges?
 
-Part Two – Find IDs made of any repeated pattern (two or more times)
+Part Two ï¿½ Find IDs made of any repeated pattern (two or more times)
 
 Now, an ID is invalid if it consists of any sequence of digits repeated at least twice
 (e.g., 12341234, 123123123, 1212121212, 1111111).

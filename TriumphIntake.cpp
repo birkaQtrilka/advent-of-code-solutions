@@ -56,8 +56,10 @@ int main()
 
   std::string filePtr = "";
   auto it = g_config.find("testFile");
-  if ( it != g_config.end())
+  if ( it != g_config.end()){
+    // cout << 
     filePtr = it->second; // second is value
+  }
 
   Registry::instantiateAndRunLastOrGivenFile(filePtr);
   return 0;

@@ -18,23 +18,25 @@ void Registry::instantiateAndRun() {
 
 void Registry::instantiateAndRunLastOrGivenFile(const std::string& file)
 {
-  int i;
+  int i = registry.size() - 1;
+   
+  std::string fileName = file != "" && file[0] != '-' ? file : registry[i].inputName;
 
-  auto it = std::find_if(registry.begin(), registry.end(),
-    [file](const ChallengeData& x) {
-      return x.inputName == file;
-    }
-  );
+  // auto it = std::find_if(registry.begin(), registry.end(),
+  //   [file](const ChallengeData& x) {
+  //     return x.inputName == file;
+  //   }
+  // );
 
-  if (it != registry.end()) {
-    i = std::distance(registry.begin(), it);
-  }
-  else {
-    i = registry.size() - 1;
-  }
+  // if (it != registry.end()) {
+    // i = std::distance(registry.begin(), it);
+  // }
+  // else {
+  //   i = registry.size() - 1;
+  // }
 
   // Now instantiate and run the correct challenge
   std::unique_ptr<Challenge> obj = registry[i].creator();
-  obj->Run(registry[i].inputName);
+  obj->Run(fileName);
 }
 

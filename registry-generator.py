@@ -1,11 +1,38 @@
 import os
 import re
+from config_manager import load_config
+import os
+import sys
+
+config = load_config()
+active_year = config.get("selected_year")
 
 base_class_name = "Challenge"      # Abstract base class
-directory = "./Exercices/2025"     # directory to scan
+exercices_base_dir = os.path.join(".", "Exercices")
+
+# 1. Check if the base Exercices directory exists
+if not os.path.exists(exercices_base_dir):
+    print(f"Error: The directory '{exercices_base_dir}' does not exist.")
+    sys.exit(1)
+
+# 2. Get a list of all folders inside ./Exercices/ (sorted alphabetically/numerically)
+existing_folders = [f for f in os.listdir(exercices_base_dir) if os.path.isdir(os.path.join(exercices_base_dir, f))]
+existing_folders.sort()
+
+# 3. If there are no folders at all, stop the program
+if not existing_folders:
+    print(f"Error: No year folders found inside '{exercices_base_dir}'. Please create one first.")
+    sys.exit(1)
+
+# 4. If the active_year is invalid or doesn't exist, default to the first available folder
+if str(active_year) not in existing_folders:
+    print(f"Warning: Folder for year '{active_year}' not found. Defaulting to '{existing_folders[0]}'.")
+    active_year = existing_folders[0]
+
+# Now safely set the directory to scan
+directory = os.path.join(exercices_base_dir, str(active_year))      
 output_file = "generated_registration.cpp"
 
-# Regex to find derived classes
 pattern = re.compile(
     rf'class\s+(\w+)\s*:\s*public\s+{base_class_name}'
 )
@@ -45,7 +72,7 @@ with open(output_file, "w", encoding="utf-8") as outfile:
 
     # Write includes
     for name in sorted_classes:
-        outfile.write(f'#include "{directory}/{name}.h"\n')
+        outfile.write(f'#include "{os.path.join(directory, name)}.h"\n')
 
     outfile.write('\nvoid registerClasses() {\n')
 

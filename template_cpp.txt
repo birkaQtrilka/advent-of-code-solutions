@@ -1,0 +1,11 @@
+#include "{filename}.h"
+
+void {filename}::Run1(ifstream& input)
+{
+  cout<<"running {filename}";
+}
+
+void {filename}::Run2(ifstream& input)
+{
+  
+}

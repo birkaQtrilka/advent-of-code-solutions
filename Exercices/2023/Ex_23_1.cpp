@@ -29,64 +29,44 @@ void Ex_23_1::Run1(ifstream& input)
   // cout << sum;
 }
 
-char Ex_23_1::match(const std::array<string,10>& arr, const std::string_view str) {
-  int i = 0;
-  for (auto &&item : arr)
-  {
-    string_view potential_match = str.substr(0, item.size());
-    if(potential_match == item) return i + '0';
-    i++;
+char Ex_23_1::match(const std::array<string_view,10>& arr, const std::string_view str) {
+  for (size_t i = 0; i < arr.size(); i++) {
+    if(str.substr(0, arr[i].size()) == arr[i]) return i + '0';
   }
-  return 'z';
+  return '\0';
 }
 
 void Ex_23_1::Run2(ifstream& input)
 {
   string line;
   long long sum = 0;
-  std::array<string,10> map = {
+  std::array<string_view,10> map = {
     "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
   };
 
   while (getline(input, line)) {
-    char first = '0';
-    char last = '0';
+    char first = '\0';
+    char last = '\0';
     for (size_t i = 0; i < line.size(); i++)
     {
       char c = line[i];
-      if(first == '0') {
-        if(std::isdigit(c)) {
-          first = c;
-          last = c;
-          // cout<<"First: " << c << '\n';
-
-        }
-        else {
-          char m = match(map, string_view(line).substr(i,5));
-          if(m != 'z') {
-            first = m;
-            last = m;
-            // cout<<"First: " << m << '\n';
-          }
-        }
-        continue;
-      }
-      if(std::isdigit(c)) {
-        // cout<<"Looking for last: " << c << '\n';
-        last = c; 
-      }
+      char current_digit = '\0';
+            
+      if (std::isdigit(c)) {
+        current_digit = c;
+      } 
       else {
-        char m = match(map, std::string_view(line).substr(i,5));
-        if(m != 'z') {
-          // cout<<"Looking for last: " << m << '\n';
-          last = m;
+        current_digit = match(map, string_view(line).substr(i));
+      }
+      if(current_digit != '\0') {
+        if(first == '\0'){
+          first = current_digit;
         }
+        last = current_digit;
       }
     }
-
-    string res{first,last};
-    // cout << res << '\n';
-    sum += std::stoi(res);
+    if (first != '\0' && last != '\0') 
+      sum += (first - '0') * 10 + (last - '0');
 	}
 
   cout << sum;

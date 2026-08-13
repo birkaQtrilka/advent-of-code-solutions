@@ -11,6 +11,6 @@ class Ex_23_1 : public Challenge
 public:
 
 	void Run1(ifstream& input) override;
-  char match(const std::array<string, 10> &arr, std::string_view str);
+  char match(const std::array<string_view, 10> &arr, std::string_view str);
   void Run2(ifstream &input) override;
 };

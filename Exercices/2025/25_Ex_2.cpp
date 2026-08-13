@@ -15,7 +15,7 @@ Now, an ID is invalid if it consists of any sequence of digits repeated at least
 --> How many invalid IDs (sum of their numeric values) appear in all given ranges under the new rules?
 */
 
-#include "Ex_2.h"
+#include "25_Ex_2.h"
 #include <cmath>
 #include <sstream>
 

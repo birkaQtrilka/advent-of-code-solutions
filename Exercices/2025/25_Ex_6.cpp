@@ -20,7 +20,7 @@ group at a time. Apply the operator at the bottom of each column group.
 */
 
 
-#include "Ex_6.h"
+#include "25_Ex_6.h"
 #include <chrono>
 
 void Ex_6::Run1(ifstream& input) {

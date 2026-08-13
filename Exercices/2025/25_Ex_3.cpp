@@ -16,7 +16,7 @@ The bank's joltage is the 12-digit number formed by the selected digits, in orde
 */
 
 
-#include "Ex_3.h"
+#include "25_Ex_3.h"
 
 void Ex_3::Run1(ifstream& input)
 {

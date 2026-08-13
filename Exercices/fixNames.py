@@ -15,12 +15,13 @@ def fix_name(path, root, file):
     new_path = os.path.join(root, name)
     os.rename(path, new_path)
 
-directory = './2025'
+directory = './2025/'
 
 for root, dirs, files in os.walk(directory):
     for file in files:
         # if file.startswith('25_'):
             path = os.path.join(root, file)
-            fix_content(path, root, file)
+            # fix_name(path, root, file)
+            fix_content(path)
             print(f"Updated: {file}")
             

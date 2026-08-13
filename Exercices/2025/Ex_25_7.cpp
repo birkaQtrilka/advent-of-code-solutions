@@ -18,7 +18,7 @@
 
 #include "Ex_25_7.h"
 #include <stack>
-#include "../utils.h"
+#include "../../utils.h"
 
 struct Point {
 	int x = 0;

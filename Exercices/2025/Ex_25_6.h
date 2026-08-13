@@ -1,5 +1,5 @@
 #pragma once
-#include "Challenge.h"
+#include "../Challenge.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

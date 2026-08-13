@@ -18,7 +18,7 @@ the grid, and continue until no rolls remain accessible.
 
 
 #include "Ex_25_4.h"
-#include "../utils.h"
+#include "../../utils.h"
 
 void Ex_25_4::Run1(ifstream& input)
 {

@@ -2,8 +2,9 @@ import os
 import re
 
 base_class_name = "Challenge"      # Abstract base class
-directory = "./Exercices"                  # Root directory to scan
+directory = "./Exercices/2025"     # directory to scan
 output_file = "generated_registration.cpp"
+
 
 # Regex to find derived classes
 pattern = re.compile(
@@ -31,7 +32,8 @@ for root, dirs, files in os.walk(directory):
                 pass
 
 # Helper to extract numeric suffix (Ex_10 -> 10)
-def extract_number(name):
+def extract_number(name: str):
+    name = name[5:] # skipping year tag 'Ex_25_'
     match = re.search(r'\d+', name)
     return int(match.group()) if match else 0
 
@@ -44,7 +46,7 @@ with open(output_file, "w", encoding="utf-8") as outfile:
 
     # Write includes
     for name in sorted_classes:
-        outfile.write(f'#include "./Exercices/{name}.h"\n')
+        outfile.write(f'#include "{directory}/{name}.h"\n')
 
     outfile.write('\nvoid registerClasses() {\n')
 

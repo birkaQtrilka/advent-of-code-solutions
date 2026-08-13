@@ -14,7 +14,7 @@ class Registry {
 public:
     static void registerClass(ChallengeData data);
     static void instantiateAndRun();
-    static void instantiateAndRunLast(const std::string& file = "");
+    static void instantiateAndRunLastOrGivenFile(const std::string& file = "");
 };
 
 #define REGISTER_DERIVED_CLASS(Derived, FileName) \

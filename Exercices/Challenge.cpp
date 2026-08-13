@@ -10,7 +10,7 @@ void Challenge::Run(const std::string& inputName)
     std::ifstream input(inputName);
 
     if (!input) {
-        std::cerr << "File not found! Creating new file..." << inputName << std::endl;
+        std::cerr << "Input File for exercise not found! Creating new file..." << inputName << std::endl;
         std::ofstream newFile(inputName);  // This creates a new file
         if (!newFile) {
             std::cerr << "Failed to create file!" << std::endl;

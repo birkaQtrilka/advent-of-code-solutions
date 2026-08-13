@@ -5,7 +5,6 @@ base_class_name = "Challenge"      # Abstract base class
 directory = "./Exercices/2025"     # directory to scan
 output_file = "generated_registration.cpp"
 
-
 # Regex to find derived classes
 pattern = re.compile(
     rf'class\s+(\w+)\s*:\s*public\s+{base_class_name}'

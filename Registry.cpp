@@ -16,7 +16,7 @@ void Registry::instantiateAndRun() {
   }
 }
 
-void Registry::instantiateAndRunLast(const std::string& file)
+void Registry::instantiateAndRunLastOrGivenFile(const std::string& file)
 {
   int i;
 

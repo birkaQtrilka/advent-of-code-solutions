@@ -109,6 +109,7 @@
     </Link>
     <PreBuildEvent>
       <Command>python "$(ProjectDir)registry-generator.py"</Command>
+      <Command>python "$(ProjectDir)update_vsproj.py"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,6 +143,7 @@
     <ClCompile Include="Exercices\2025\Ex_25_7.cpp" />
     <ClCompile Include="Exercices\2025\Ex_25_8.cpp" />
     <ClCompile Include="Exercices\2025\Ex_25_9.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_100.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exercices\Challenge.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="Exercices\2025\Ex_25_7.h" />
     <ClInclude Include="Exercices\2025\Ex_25_8.h" />
     <ClInclude Include="Exercices\2025\Ex_25_9.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_100.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="registry-generator.py" />
@@ -178,6 +181,7 @@
     <Text Include="Inputs\Ex_10_input.txt" />
     <Text Include="Inputs\Ex_8_input.txt" />
     <Text Include="Inputs\Ex_9_input.txt" />
+    <Text Include="Inputs\Ex_25_10_input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

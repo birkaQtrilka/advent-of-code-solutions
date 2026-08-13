@@ -33,34 +33,37 @@
     <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_1.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_2.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_10.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_3.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_4.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_5.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_6.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_7.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_8.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_7.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_9.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_8.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercices\Ex_10.cpp">
+    <ClCompile Include="Exercices\2025\Ex_25_9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exercices\2023\Ex_23_1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,34 +83,37 @@
     <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_7.h">
+    <ClInclude Include="Exercices\2025\Ex_25_1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_1.h">
+    <ClInclude Include="Exercices\2025\Ex_25_10.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_2.h">
+    <ClInclude Include="Exercices\2025\Ex_25_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_3.h">
+    <ClInclude Include="Exercices\2025\Ex_25_3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_4.h">
+    <ClInclude Include="Exercices\2025\Ex_25_4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_5.h">
+    <ClInclude Include="Exercices\2025\Ex_25_5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_6.h">
+    <ClInclude Include="Exercices\2025\Ex_25_6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_8.h">
+    <ClInclude Include="Exercices\2025\Ex_25_7.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_9.h">
+    <ClInclude Include="Exercices\2025\Ex_25_8.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercices\Ex_10.h">
+    <ClInclude Include="Exercices\2025\Ex_25_9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exercices\2023\Ex_23_1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -128,5 +134,12 @@
     <Text Include="Inputs\Ex_5_input.txt" />
     <Text Include="Inputs\Ex_6_input.txt" />
     <Text Include="Inputs\Ex_7_input.txt" />
+    <Text Include="Inputs\Ex_10_input.txt" />
+    <Text Include="Inputs\Ex_8_input.txt" />
+    <Text Include="Inputs\Ex_9_input.txt" />
+    <Text Include="template_cpp.txt" />
+    <Text Include="template_h.txt" />
+    <Text Include="Inputs\Ex_25_10_input.txt" />
+    <Text Include="Inputs\Ex_23_1_input.txt" />
   </ItemGroup>
 </Project>

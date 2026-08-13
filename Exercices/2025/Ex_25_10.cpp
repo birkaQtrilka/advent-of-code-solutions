@@ -1,12 +1,12 @@
 #pragma once
-#include "25_Ex_10.h"
+#include "Ex_25_10.h"
 #include <regex>
 #include <sstream>
 #include <queue>
 #include <stack>
 #include <unordered_map>
 
-void Ex_10::Run1(ifstream& input)
+void Ex_25_10::Run1(ifstream& input)
 {
   return;
 	string line;
@@ -15,10 +15,10 @@ void Ex_10::Run1(ifstream& input)
 	{
 		total += AnalyzeLine(line);
   }
-	cout << "Ex_10: " << total << endl;
+	cout << "Ex_25_10: " << total << endl;
 }
 
-void Ex_10::Run2(ifstream& input)
+void Ex_25_10::Run2(ifstream& input)
 {
   string line;
   int total = 0;
@@ -26,10 +26,10 @@ void Ex_10::Run2(ifstream& input)
   {
     total += AnalyzeLine2(line);
   }
-  cout << "Ex_10 (b): " << total << endl;
+  cout << "Ex_25_10 (b): " << total << endl;
 }
 
-int Ex_10::AnalyzeLine(const string& line)
+int Ex_25_10::AnalyzeLine(const string& line)
 {
   uint32_t target = 0;
   vector<uint32_t> schematics;
@@ -66,7 +66,7 @@ int Ex_10::AnalyzeLine(const string& line)
 	return 0;
 }
 
-int Ex_10::AnalyzeLine2(const string& line)
+int Ex_25_10::AnalyzeLine2(const string& line)
 {
   vector<Button> schematics;
   vector<int> target;
@@ -142,7 +142,7 @@ int Ex_10::AnalyzeLine2(const string& line)
   return -1;
 }
 
-void Ex_10::ForEachContent(
+void Ex_25_10::ForEachContent(
   const string& line,
   const string& s,
   const string& e,
@@ -165,7 +165,7 @@ void Ex_10::ForEachContent(
   }
 }
 
-void Ex_10::GetNumber(string& content, const function<void(int)>& callback)
+void Ex_25_10::GetNumber(string& content, const function<void(int)>& callback)
 {
   string token;
   stringstream ss(content);
@@ -175,11 +175,11 @@ void Ex_10::GetNumber(string& content, const function<void(int)>& callback)
   }
 }
 
-void Ex_10::Toggle(uint32_t& bits, int i) {
+void Ex_25_10::Toggle(uint32_t& bits, int i) {
   bits ^= (1u << i);
 }
 
-string Ex_10::ToBitString(uint32_t value) {
+string Ex_25_10::ToBitString(uint32_t value) {
   string result;
   result.reserve(32);
 

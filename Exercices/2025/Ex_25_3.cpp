@@ -16,9 +16,9 @@ The bank's joltage is the 12-digit number formed by the selected digits, in orde
 */
 
 
-#include "25_Ex_3.h"
+#include "Ex_25_3.h"
 
-void Ex_3::Run1(ifstream& input)
+void Ex_25_3::Run1(ifstream& input)
 {
 	string bank;
 	int count = 0;
@@ -48,10 +48,10 @@ void Ex_3::Run1(ifstream& input)
 		//cout << "bank highest joltage: " << sum << endl;
 		count += sum;
 	}
-	cout << "Ex_3: " << count << endl;
+	cout << "Ex_25_3: " << count << endl;
 }
 
-void Ex_3::Run2(ifstream& input)
+void Ex_25_3::Run2(ifstream& input)
 {
 	string bank;
 	long long count = 0;
@@ -82,5 +82,5 @@ void Ex_3::Run2(ifstream& input)
 		//cout << "bank highest joltage: " << sum << endl;
 		count += sum;
 	}
-	cout << "Ex_3 (b): " << count << endl;
+	cout << "Ex_25_3 (b): " << count << endl;
 }

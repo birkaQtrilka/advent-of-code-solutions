@@ -32,7 +32,7 @@ public:
 	PointData(Vec2 point, Vec2 otherP) : p(point), other(otherP) {}
 };
 
-class Ex_9 : public Challenge
+class Ex_25_9 : public Challenge
 {
 public:
 	array<PointData, 4> points;

@@ -64,7 +64,7 @@ struct Node {
 	}
 };
 
-class Ex_10 : public Challenge
+class Ex_25_10 : public Challenge
 {
 public:
 

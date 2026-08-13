@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-class Ex_1 : public Challenge
+class Ex_25_3 : public Challenge
 {
 public:
 

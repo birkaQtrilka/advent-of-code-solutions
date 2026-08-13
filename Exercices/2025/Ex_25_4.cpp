@@ -17,10 +17,10 @@ the grid, and continue until no rolls remain accessible.
 */
 
 
-#include "25_Ex_4.h"
+#include "Ex_25_4.h"
 #include "../utils.h"
 
-void Ex_4::Run1(ifstream& input)
+void Ex_25_4::Run1(ifstream& input)
 {
 	return;
 	vector<string> grid;
@@ -47,10 +47,10 @@ void Ex_4::Run1(ifstream& input)
 			count += paperRollCount < 4;
 		}
 	}
-	cout << "Ex_4: " << count << endl;
+	cout << "Ex_25_4: " << count << endl;
 }
 
-void Ex_4::AvailableBounds(int x, int y, int s, vector<Point>& bounds) {
+void Ex_25_4::AvailableBounds(int x, int y, int s, vector<Point>& bounds) {
 	if (x - 1 > -1) bounds.push_back({x - 1, y});
 	if (x + 1 < s) bounds.push_back({x + 1, y});
 	if (y - 1 > -1) bounds.push_back({x, y - 1 });
@@ -62,7 +62,7 @@ void Ex_4::AvailableBounds(int x, int y, int s, vector<Point>& bounds) {
 	if(x - 1 > -1 && y + 1 < s) bounds.push_back({ x - 1, y + 1 });
 }
 
-void Ex_4::Run2(ifstream& input)
+void Ex_25_4::Run2(ifstream& input)
 {
 	vector<string> grid;
 	string line;
@@ -107,5 +107,5 @@ void Ex_4::Run2(ifstream& input)
 	} while (toBeRemoved.size() != 0);
 	utils::EnterPause();
 
-	cout << "Ex_4: " << count << endl;
+	cout << "Ex_25_4: " << count << endl;
 }

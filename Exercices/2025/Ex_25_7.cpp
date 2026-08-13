@@ -16,7 +16,7 @@
 //	--> After the particle completes all possible journeys, how many distinct timelines exist?
 
 
-#include "25_Ex_7.h"
+#include "Ex_25_7.h"
 #include <stack>
 #include "../utils.h"
 
@@ -25,7 +25,7 @@ struct Point {
 	int y = 0;
 };
 
-void Ex_7::Run1(ifstream& input)
+void Ex_25_7::Run1(ifstream& input)
 {
 	vector<string> grid;
 	string line;
@@ -67,10 +67,10 @@ void Ex_7::Run1(ifstream& input)
 			ops.push({ i.x , i.y + 1 });
 		}
 	}
-	cout << "Ex_7: " << splitCount << endl;
+	cout << "Ex_25_7: " << splitCount << endl;
 }
 
-long long Ex_7::Dfs(int x, int y, const vector<string>& grid,
+long long Ex_25_7::Dfs(int x, int y, const vector<string>& grid,
 	vector<vector<long long>>& memo)
 {
 	int H = grid.size();
@@ -102,7 +102,7 @@ long long Ex_7::Dfs(int x, int y, const vector<string>& grid,
 	return result;
 }
 
-void Ex_7::Run2(ifstream& input)
+void Ex_25_7::Run2(ifstream& input)
 {
 	vector<string> grid;
 	string line;
@@ -116,7 +116,7 @@ void Ex_7::Run2(ifstream& input)
 
 	long long timelines = Dfs(start, 0, grid, memo);
 
-	cout << "Ex_7 Part 2: " << timelines << endl;
+	cout << "Ex_25_7 Part 2: " << timelines << endl;
 }
 
 

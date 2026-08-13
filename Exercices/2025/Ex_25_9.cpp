@@ -1,10 +1,10 @@
-#include "25_Ex_9.h"
+#include "Ex_25_9.h"
 #include <algorithm>
 #include "../utils.h"
 #include <queue>
 
 
-void Ex_9::Run1(ifstream& input)
+void Ex_25_9::Run1(ifstream& input)
 {
   vector<Vec2> positions;
 
@@ -29,11 +29,11 @@ void Ex_9::Run1(ifstream& input)
     }
   }
 
-  cout << "Ex_9: " << max << endl;
+  cout << "Ex_25_9: " << max << endl;
 
 }
 
-void Ex_9::AvailableBounds(int x, int y, int maxX, int maxY, vector<Vec2>& out)
+void Ex_25_9::AvailableBounds(int x, int y, int maxX, int maxY, vector<Vec2>& out)
 {
   out.clear();
   if (x > 0)         out.push_back({ x - 1, y });
@@ -42,7 +42,7 @@ void Ex_9::AvailableBounds(int x, int y, int maxX, int maxY, vector<Vec2>& out)
   if (y + 1 < maxY)  out.push_back({ x, y + 1 });
 }
 
-bool Ex_9::SegmentsIntersect(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4) {
+bool Ex_25_9::SegmentsIntersect(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4) {
   // Determine which is vertical and which is horizontal
   bool p1p2_vertical = (p1.x == p2.x);
   bool p3p4_vertical = (p3.x == p4.x);
@@ -66,7 +66,7 @@ bool Ex_9::SegmentsIntersect(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4) {
   return x_overlaps && y_overlaps;
 }
 
-bool Ex_9::IsRectInPolygon(Rect r, const std::vector<Vec2>& poly) {
+bool Ex_25_9::IsRectInPolygon(Rect r, const std::vector<Vec2>& poly) {
   int n = poly.size();
 	Vec2 tR = { r.max.x, r.min.y };
 	Vec2 bL = { r.min.x, r.max.y };
@@ -104,7 +104,7 @@ bool Ex_9::IsRectInPolygon(Rect r, const std::vector<Vec2>& poly) {
     });
 }
 
-bool Ex_9::OnSegment(Vec2 p, Vec2 a, Vec2 b) {
+bool Ex_25_9::OnSegment(Vec2 p, Vec2 a, Vec2 b) {
   // Case 1: Vertical Edge (Same Column)
   if (a.x == b.x) {
     if (p.x != a.x) return false; // Not in same column
@@ -115,7 +115,7 @@ bool Ex_9::OnSegment(Vec2 p, Vec2 a, Vec2 b) {
   return p.x >= std::min(a.x, b.x) && p.x <= std::max(a.x, b.x);
 }
 
-void Ex_9::IsPointInPolygon(Vec2 p, Vec2 a, Vec2 b, bool& inside) {
+void Ex_25_9::IsPointInPolygon(Vec2 p, Vec2 a, Vec2 b, bool& inside) {
   if (
 		  a.x == b.x && // vertical edge
       ((a.y > p.y) != (b.y > p.y)) && // between y of a and b
@@ -125,7 +125,7 @@ void Ex_9::IsPointInPolygon(Vec2 p, Vec2 a, Vec2 b, bool& inside) {
   }
 }
 
-void Ex_9::Run2(ifstream& input)
+void Ex_25_9::Run2(ifstream& input)
 {
   vector<Vec2> positions;
   string line;
@@ -167,5 +167,5 @@ void Ex_9::Run2(ifstream& input)
     }
 	}
 
-  cout << "Ex_9 (b): " << best << endl;
+  cout << "Ex_25_9 (b): " << best << endl;
 }

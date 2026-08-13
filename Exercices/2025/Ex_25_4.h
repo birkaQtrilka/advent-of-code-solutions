@@ -6,13 +6,16 @@
 #include <vector>
 #include <string>
 
+struct Point {
+	int x = 0;
+	int y = 0;
+};
 
-
-class Ex_7 : public Challenge
+class Ex_25_4 : public Challenge
 {
 public:
 	void Run1(ifstream& input) override;
-	long long Dfs(int x, int y, const vector<string>& grid, vector<vector<long long>>& memo);
 	void Run2(ifstream& input) override;
+	void AvailableBounds(int x, int y, int s, vector<Point>& bounds);
 };
 

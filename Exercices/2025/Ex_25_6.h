@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-class Ex_6 : public Challenge
+class Ex_25_6 : public Challenge
 {
 public:
 

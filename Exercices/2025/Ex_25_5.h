@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-class Ex_5 : public Challenge
+class Ex_25_5 : public Challenge
 {
 public:
 	void Run1(ifstream& input) override;

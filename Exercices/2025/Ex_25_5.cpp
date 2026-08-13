@@ -20,12 +20,12 @@ ingredient IDs they cover.
 */
 
 
-#include "25_Ex_5.h"
+#include "Ex_25_5.h"
 struct Range {
 	long long min = 0;
 	long long max = 0;
 };
-void Ex_5::Run1(ifstream& input)
+void Ex_25_5::Run1(ifstream& input)
 {
 	// parsing -------
 	string line;
@@ -62,10 +62,10 @@ void Ex_5::Run1(ifstream& input)
 		}
 	}
 
-	cout << "Ex_5: " << count << endl;
+	cout << "Ex_25_5: " << count << endl;
 }
 
-void Ex_5::Run2(ifstream& input)
+void Ex_25_5::Run2(ifstream& input)
 {
 	string line;
 	vector<Range> ranges;
@@ -107,5 +107,5 @@ void Ex_5::Run2(ifstream& input)
 		if (range.min == -1) continue;
 		count += range.max - range.min + 1;
 	}
-	cout << "Ex_5 (b): " << count << endl;
+	cout << "Ex_25_5 (b): " << count << endl;
 }

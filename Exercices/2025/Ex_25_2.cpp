@@ -15,11 +15,11 @@ Now, an ID is invalid if it consists of any sequence of digits repeated at least
 --> How many invalid IDs (sum of their numeric values) appear in all given ranges under the new rules?
 */
 
-#include "25_Ex_2.h"
+#include "Ex_25_2.h"
 #include <cmath>
 #include <sstream>
 
-void Ex_2::Run1(ifstream& input)
+void Ex_25_2::Run1(ifstream& input)
 {
   string line;
   getline(input, line);
@@ -53,10 +53,10 @@ void Ex_2::Run1(ifstream& input)
       }
     }
   }
-  cout << "Ex_2: " << count << endl;
+  cout << "Ex_25_2: " << count << endl;
 }
 
-void Ex_2::Run2(ifstream& input)
+void Ex_25_2::Run2(ifstream& input)
 {
   string line;
   getline(input, line);
@@ -108,5 +108,5 @@ void Ex_2::Run2(ifstream& input)
       }
     }
   }
-  cout << "Ex_2 (b): " << count << endl;
+  cout << "Ex_25_2 (b): " << count << endl;
 }

@@ -2,7 +2,7 @@ import os
 import re
 
 base_class_name = "Challenge"      # Abstract base class
-directory = "./"                  # Root directory to scan
+directory = "./Exercices"                  # Root directory to scan
 output_file = "generated_registration.cpp"
 
 # Regex to find derived classes

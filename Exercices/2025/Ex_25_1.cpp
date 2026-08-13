@@ -1,12 +1,12 @@
 
-/*Part One – Count times the dial ends on 0
+/*Part One ï¿½ Count times the dial ends on 0
 
-You are given a list of rotations on a circular dial numbered 0–99, starting at 50.
+You are given a list of rotations on a circular dial numbered 0ï¿½99, starting at 50.
 Each rotation moves the dial left (decreasing numbers) or right (increasing numbers), wrapping around at both ends.
 
 --> How many times does the dial land exactly on 0 after completing a rotation?
 
-Part Two – Count every time the dial clicks past 0
+Part Two ï¿½ Count every time the dial clicks past 0
 
 Now you must count every individual click where the dial passes or lands on 0, including:
 When a rotation finishes at 0
@@ -15,14 +15,14 @@ When the dial rolls past 0 during a long rotation (e.g., L68, R1000)
 --> How many total clicks (endpoints + intermediate steps) cause the dial to point at 0?
 */
 
-#include "25_Ex_1.h"
+#include "Ex_25_1.h"
 
 struct LockEntry {
 	int dir = 0;
 	int distance = 0;
 };
 
-void Ex_1::Run1(ifstream& input)
+void Ex_25_1::Run1(ifstream& input)
 {
 	int CAP = 100;
 	string line;
@@ -44,7 +44,7 @@ void Ex_1::Run1(ifstream& input)
 	cout << "Number of times at 0: " << count << endl;
 }
 
-void Ex_1::Run2(ifstream& input)
+void Ex_25_1::Run2(ifstream& input)
 {
 	// parsing -------
 	int CAP = 100;
@@ -76,6 +76,6 @@ void Ex_1::Run2(ifstream& input)
 
 		count += crosses;
 	}
-	cout << "Ex_1 (b): " << count << endl;
+	cout << "Ex_25_1 (b): " << count << endl;
 
 }

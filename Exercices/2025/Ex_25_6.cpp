@@ -20,10 +20,10 @@ group at a time. Apply the operator at the bottom of each column group.
 */
 
 
-#include "25_Ex_6.h"
+#include "Ex_25_6.h"
 #include <chrono>
 
-void Ex_6::Run1(ifstream& input) {
+void Ex_25_6::Run1(ifstream& input) {
   if (true) {
     Run11(input);
     return;
@@ -74,7 +74,7 @@ void Ex_6::Run1(ifstream& input) {
 }
 
 // Original algorithm
-void Ex_6::Run11(istream& input) {
+void Ex_25_6::Run11(istream& input) {
   // parsing -------
   string line;
   vector<vector<int>> unrolledProblems;
@@ -122,9 +122,9 @@ void Ex_6::Run11(istream& input) {
     count += math;
   }
 
-  cout << "Ex_6: " << count << endl;
+  cout << "Ex_25_6: " << count << endl;
 }
-vector<vector<int>> Ex_6::AlignVectors(const vector<vector<int>>& input, int chunkSize) {
+vector<vector<int>> Ex_25_6::AlignVectors(const vector<vector<int>>& input, int chunkSize) {
   vector<vector<int>> result;
   vector<int> current;
   current.reserve(chunkSize * 2);
@@ -146,7 +146,7 @@ vector<vector<int>> Ex_6::AlignVectors(const vector<vector<int>>& input, int chu
 
   return result;
 }
-void Ex_6::Run12(istream& input) {
+void Ex_25_6::Run12(istream& input) {
   string line;
 
   // --- First pass: read all number vectors ---
@@ -222,10 +222,10 @@ void Ex_6::Run12(istream& input) {
   for (long long v : accum) total += v;
 
   // No output (benchmarking mode)
-  // cout << "Ex_6 (Run12): " << total << endl;
+  // cout << "Ex_25_6 (Run12): " << total << endl;
 }
 
-void Ex_6::Run2(ifstream& input)
+void Ex_25_6::Run2(ifstream& input)
 {
 	string line;
 	string unrolledProblems;
@@ -294,5 +294,5 @@ void Ex_6::Run2(ifstream& input)
 		start += operators[i].size();
 	}
 
-	cout << "Ex_6 (b): " << count << endl;
+	cout << "Ex_25_6 (b): " << count << endl;
 }

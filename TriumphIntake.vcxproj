@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -128,37 +128,37 @@
   <ItemGroup>
     <ClCompile Include="Exercices\Challenge.cpp" />
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="Exercices\Ex_1.cpp" />
-    <ClCompile Include="Exercices\Ex_2.cpp" />
-    <ClCompile Include="Exercices\Ex_3.cpp" />
-    <ClCompile Include="Exercices\Ex_4.cpp" />
-    <ClCompile Include="Exercices\Ex_5.cpp" />
-    <ClCompile Include="Exercices\Ex_6.cpp" />
-    <ClCompile Include="Exercices\Ex_7.cpp" />
-    <ClCompile Include="Exercices\Ex_8.cpp" />
-    <ClCompile Include="Exercices\Ex_9.cpp" />
-    <ClCompile Include="Exercices\Ex_10.cpp" />
     <ClCompile Include="generated_registration.cpp" />
     <ClCompile Include="Registry.cpp" />
     <ClCompile Include="TriumphIntake.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_1.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_10.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_2.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_3.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_4.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_5.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_6.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_7.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_8.cpp" />
+    <ClCompile Include="Exercices\2025\Ex_25_9.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exercices\Challenge.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="Exercices\Ex_1.h" />
-    <ClInclude Include="Exercices\Ex_2.h" />
-    <ClInclude Include="Exercices\Ex_3.h" />
-    <ClInclude Include="Exercices\Ex_4.h" />
-    <ClInclude Include="Exercices\Ex_5.h" />
-    <ClInclude Include="Exercices\Ex_6.h" />
-    <ClInclude Include="Exercices\Ex_7.h" />
-    <ClInclude Include="Exercices\Ex_8.h" />
-    <ClInclude Include="Exercices\Ex_9.h" />
-    <ClInclude Include="Exercices\Ex_10.h" />
     <ClInclude Include="Registry.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_1.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_10.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_2.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_3.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_4.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_5.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_6.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_7.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_8.h" />
+    <ClInclude Include="Exercices\2025\Ex_25_9.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="registry-generator.py" />
@@ -175,6 +175,9 @@
     <Text Include="Inputs\Ex_6_input.txt" />
     <Text Include="Inputs\Ex_7_input.txt" />
     <Text Include="myConfig.txt" />
+    <Text Include="Inputs\Ex_10_input.txt" />
+    <Text Include="Inputs\Ex_8_input.txt" />
+    <Text Include="Inputs\Ex_9_input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

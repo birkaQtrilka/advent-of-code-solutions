@@ -3,6 +3,11 @@
 #include <charconv>
 #include <tuple>
 
+struct Point {
+    int x, y;
+    bool operator==(const Point& other) const { return y == other.y && x == other.x; }
+};
+
 bool isSymbol(char c) {
     return c != '.' && !std::isdigit(c);
 }
@@ -64,17 +69,23 @@ void Ex_23_3::Run1(ifstream& input)
   utils::println(sum);
 }
 
-void getIndeces(const vector<string>& grid, size_t x, size_t y, size_t size, vector<tuple<size_t, size_t>>& res) {
+void getIndeces(const vector<string>& grid, size_t x, size_t y, size_t size, vector<Point>& res) {
   
-  if (x+1 < size && isdigit(grid[y][x+1])) res.push_back(tuple(y, x+1));
-  if (y+1 < size && isdigit(grid[y+1][x])) res.push_back(tuple(y+1, x));
-  if (x > 0 && isdigit(grid[y][x-1])) res.push_back(tuple(y, x-1));
-  if (y > 0 && isdigit(grid[y-1][x])) res.push_back(tuple(y-1, x));
-  if (y > 0 && x > 0 && isdigit(grid[y-1][x-1])) res.push_back(tuple(y-1, x-1));
-  if (y+1 < size && x+1 < size && isdigit(grid[y+1][x+1])) res.push_back(tuple(y+1, x+1));
-  if (y > 0 && x+1 < size && isdigit(grid[y-1][x+1])) res.push_back(tuple(y-1, x+1));
-  if (y+1 < size && x > 0 && isdigit(grid[y+1][x-1])) res.push_back(tuple(y+1, x-1));
-
+  for (int dy = -1; dy <= 1; ++dy) {
+    for (int dx = -1; dx <= 1; ++dx) {
+      if (dy == 0 && dx == 0) continue; // Skip the gear itself
+      
+      int ny = y + dy;
+      int nx = x + dx;
+      
+      // Check bounds and if it's a digit
+      if (ny >= 0 && ny < size && nx >= 0 && nx < size) {
+        if (std::isdigit(grid[ny][nx])) {
+          res.push_back({nx, ny});
+        }
+      }
+    }
+  }
 }
 
 // go through gears
@@ -99,8 +110,8 @@ void Ex_23_3::Run2(ifstream& input)
 
   size_t size = line.size();
   vector<char> num_chars;
-  vector<tuple<size_t, size_t>> indeces;
-  vector<tuple<size_t, size_t>> start_points;
+  vector<Point> indeces;
+  vector<Point> start_points;
   vector<int> neighbours;
   
   for (size_t y = 0; y < size; y++)
@@ -115,17 +126,17 @@ void Ex_23_3::Run2(ifstream& input)
       start_points.clear();
 
       getIndeces(grid, x, y, size, indeces);
-      for (auto &&indx : indeces)
+      for (auto &&point : indeces)
       {
         // got to outmost left
-        int ix = get<1>(indx);
-        int iy = get<0>(indx);
+        int ix = point.x;
+        int iy = point.y;
         for (; ix >= 0; ix--)
         {
           if(!isdigit(grid[iy][ix])) break;
         }
         ix++;
-        auto start_point = std::tuple(iy, ix);
+        auto start_point = Point{ix, iy};
         // check if it already exists
         bool exists = std::find(start_points.begin(), start_points.end(), start_point) != start_points.end();
         if(exists) continue;

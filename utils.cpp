@@ -104,3 +104,27 @@ int utils::cvtoi(const vector<char> str) {
   auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
   return i; 
 }
+
+void utils::checkNeighbours(
+    const std::vector<std::string>& grid, 
+    size_t x, 
+    size_t y, 
+    const std::function<void(size_t, size_t)>& callback
+) {
+    size_t cols = grid[0].size();
+    size_t rows = grid.size();
+    
+    for (int dy = -1; dy <= 1; ++dy) {
+        for (int dx = -1; dx <= 1; ++dx) {
+            if (dy == 0 && dx == 0) continue;
+
+            int ny = static_cast<int>(y) + dy;
+            int nx = static_cast<int>(x) + dx;
+
+            if (ny >= 0 && ny < static_cast<int>(rows) && 
+                nx >= 0 && nx < static_cast<int>(cols)) {
+                callback(static_cast<size_t>(ny), static_cast<size_t>(nx));
+            }
+        }
+    }
+}

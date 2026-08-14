@@ -17,17 +17,12 @@ void println(Args... args) {
 
 void Ex_23_2::Run1(ifstream& input)
 {
-  return;
   string line;
-  long long sum = 0;
-  std::array<int, 3> alllowed = {12, 13, 14};
-  // println("aaaaaaaaaaa");
+  int sum = 0;
   int id = 0;
   while (getline(input, line)) {
     string_view str(line);
     size_t end = line.find(':');
-    // string_view id_str = str.substr(5, end - 5);
-    // int id = svtoi(id_str);
     id++;
 
     long r = 0;
@@ -36,16 +31,12 @@ void Ex_23_2::Run1(ifstream& input)
     bool correct = true;
     while(end < str.size()) {
       end+=2;
-      int count = 0;
-      for (size_t i = end; str[i] != ' '; i++)
-      {
-        count++;
-      }
+      size_t space_pos = str.find(' ', end);
+      int count = space_pos - end;
 
       int num = svtoi(str.substr(end, count));
-      end+=count+1;
-      char letter = str[end];
-      switch (letter)
+      end+=count;
+      switch (str[end])
       {
       case 'r': r=num; end+= 3;break;
       case 'g': g=num; end+= 5;break;
@@ -59,7 +50,6 @@ void Ex_23_2::Run1(ifstream& input)
       }      
     } 
     sum += correct * id;
-    // println(correct);
   }
   println(sum);
 }
@@ -68,31 +58,23 @@ void Ex_23_2::Run2(ifstream& input)
 {
   string line;
   long long sum = 0;
-  std::array<int, 3> alllowed = {12, 13, 14};
   int id = 0;
   while (getline(input, line)) {
     string_view str(line);
     size_t end = line.find(':');
-    // string_view id_str = str.substr(5, end - 5);
-    // int id = svtoi(id_str);
     id++;
 
     int r = -9999999;
     int g = -9999999;
     int b = -9999999;
-    bool correct = true;
     while (end < str.size()) {
       end+=2;
-      int count = 0;
-      for (size_t i = end; str[i] != ' '; i++)
-      {
-        count++;
-      }
+      size_t space_pos = str.find(' ', end);
+      int count = space_pos - end;
 
       int num = svtoi(str.substr(end, count));
-      end+=count+1;
-      char letter = str[end];
-      switch (letter)
+      end+=count;
+      switch (str[end])
       {
       case 'r': r=std::max(num, r); end+= 3;break;
       case 'g': g=std::max(num, g); end+= 5;break;

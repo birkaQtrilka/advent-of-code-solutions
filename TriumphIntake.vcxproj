@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,6 +141,7 @@
     <ClCompile Include="Exercices\2025\Ex_25_8.cpp" />
     <ClCompile Include="Exercices\2025\Ex_25_9.cpp" />
     <ClCompile Include="Exercices\2023\Ex_23_1.cpp" />
+    <ClCompile Include="Exercices\2023\Ex_23_2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exercices\Challenge.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Exercices\2025\Ex_25_8.h" />
     <ClInclude Include="Exercices\2025\Ex_25_9.h" />
     <ClInclude Include="Exercices\2023\Ex_23_1.h" />
+    <ClInclude Include="Exercices\2023\Ex_23_2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="registry-generator.py" />
@@ -182,6 +184,7 @@
     <Text Include="template_h.txt" />
     <Text Include="Inputs\Ex_25_10_input.txt" />
     <Text Include="Inputs\Ex_23_1_input.txt" />
+    <Text Include="Inputs\Ex_23_2_input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

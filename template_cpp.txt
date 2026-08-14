@@ -3,9 +3,19 @@
 void {filename}::Run1(ifstream& input)
 {
   cout<<"running {filename}";
+  string line;
+  long long sum = 0;
+  while (getline(input, line)) {
+
+  }
 }
 
 void {filename}::Run2(ifstream& input)
 {
-  
+  cout<<"running {filename}";
+  string line;
+  long long sum = 0;
+  while (getline(input, line)) {
+
+  }
 }

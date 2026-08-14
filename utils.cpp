@@ -3,6 +3,7 @@
 #include <thread>
 #include "config.h"
 #include <iostream>
+#include <charconv>
 
 void utils::DrawGrid(const vector<string>& grid, int delayMs) {
 	static vector<string> prev;
@@ -90,4 +91,16 @@ string utils::TryGetConfigKey(const string& key) {
 	if (it != g_config.end())
 		value = it->second;
 	return value;
+}
+
+int utils::svtoi(const string_view str) {
+  int i;
+  auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
+  return i; 
+}
+
+int utils::cvtoi(const vector<char> str) {
+  int i;
+  auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
+  return i; 
 }

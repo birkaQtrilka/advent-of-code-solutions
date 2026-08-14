@@ -1,19 +1,7 @@
+#include "../../utils.h"
 #include "Ex_23_2.h"
 #include <array>
 #include <charconv>
-
-int svtoi(string_view str) {
-  int i;
-  auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
-  return i; 
-}
-
-
-
-template<typename... Args>
-void println(Args... args) {
-    ((std::cout << args << ' '), ...) << '\n';
-}
 
 void Ex_23_2::Run1(ifstream& input)
 {
@@ -34,7 +22,7 @@ void Ex_23_2::Run1(ifstream& input)
       size_t space_pos = str.find(' ', end);
       int count = space_pos - end;
 
-      int num = svtoi(str.substr(end, count));
+      int num = utils::svtoi(str.substr(end, count));
       end+=count;
       switch (str[end])
       {
@@ -51,7 +39,7 @@ void Ex_23_2::Run1(ifstream& input)
     } 
     sum += correct * id;
   }
-  println(sum);
+  utils::println(sum);
 }
 
 void Ex_23_2::Run2(ifstream& input)
@@ -72,7 +60,7 @@ void Ex_23_2::Run2(ifstream& input)
       size_t space_pos = str.find(' ', end);
       int count = space_pos - end;
 
-      int num = svtoi(str.substr(end, count));
+      int num = utils::svtoi(str.substr(end, count));
       end+=count;
       switch (str[end])
       {
@@ -85,5 +73,5 @@ void Ex_23_2::Run2(ifstream& input)
     } 
     sum += r*g*b;
   }
-  println(sum);
+  utils::println(sum);
 }

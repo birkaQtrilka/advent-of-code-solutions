@@ -93,7 +93,8 @@ string utils::TryGetConfigKey(const string& key) {
 	return value;
 }
 
-int utils::svtoi(const string_view str) {
+int utils::svtoi(string_view str) {
+  if(str[0] == ' ') str = str.substr(1,1);
   int i;
   auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
   return i; 

@@ -2,7 +2,7 @@
 
 void {filename}::Run1(ifstream& input)
 {
-  cout<<"running {filename}";
+  cout<<"running {filename}"<< '\n';
   string line;
   long long sum = 0;
   while (getline(input, line)) {
@@ -12,7 +12,7 @@ void {filename}::Run1(ifstream& input)
 
 void {filename}::Run2(ifstream& input)
 {
-  cout<<"running {filename}";
+  cout<<"running {filename} (b)" << '\n';
   string line;
   long long sum = 0;
   while (getline(input, line)) {

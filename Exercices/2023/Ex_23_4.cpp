@@ -39,69 +39,54 @@ void Ex_23_4::Run1(ifstream& input)
 }
 // int max_depth = 0;
 // long test = 0;
-long dfs(ifstream& input, string& line, vector<int>& win_n, vector<long>& mem, int id) {
-  int finds = 0;
-  if(mem.size() <= id) {
-    getline(input, line);
-    win_n.clear();
-    string_view str(line);
-    size_t end = line.find(':') + 2;
-    // utils::println(str.substr(0,end));
-
-    // get winning numbers
-    for (size_t i = 0; i < win_n.capacity(); i++, end+=3 ) {
-      win_n.push_back(utils::svtoi(str.substr(end, 2)));
-    }
-    end += 2;
-    // check my numbers
-    // int s = 0;
-    for (size_t i = 0; end < line.size(); i++, end+=3 ) {
-      if(std::find(win_n.begin(), win_n.end(), utils::svtoi(str.substr(end, 2))) == win_n.end()) continue;
-      finds += 1;
-      // if(s == 0) s = 1;
-      // else s*= 2;
-    }
-    // test += s;
-    mem.push_back(0);
-  }
-  else {
+long dfs(const vector<string>& lines, vector<long>& mem, int id) {
+  if (mem[id] != 0) {
     return mem[id];
   }
-  // int currentID = id;
 
-  if(finds == 0) {
-    mem[id] = 1;
-    // max_depth = std::max(id, max_depth);
-    return 1;
+  int finds = 0;
+  const string& line = lines[id];
+  vector<int> win_n;
+  string_view str(line);
+  
+  size_t end = line.find(':') +2;
+  // get winning numbers
+  for (size_t i = 0; i < 10; i++, end+=3 ) {
+    win_n.push_back(utils::svtoi(str.substr(end, 2)));
   }
-  else {
-    long sum = 1; 
-    for (size_t i = 0; i < finds; i++)
-    {
-      id++;
-      if(mem.size() <= id){
-        mem[id] = dfs(input, line, win_n, mem, id);
-      }
-      sum += mem[id];
-    }
-    return sum;
+  end += 2;
+  // check my numbers
+  for (size_t i = 0; end < line.size(); i++, end+=3 ) {
+    int myNum = utils::svtoi(str.substr(end, 2));
+    if(std::find(win_n.begin(), win_n.end(), myNum) == win_n.end()) continue;
+    finds++;
   }
+
+  long sum = 1;
+  for (int i = 1; i <= finds; i++) {
+    sum += dfs(lines, mem, id + i);
+  }
+  
+  mem[id] = sum;
+  return sum;
 }
 
 void Ex_23_4::Run2(ifstream& input)
 {
   cout << "running Ex_23_4 (b)" << '\n';
   string line;
-  vector<int> win_n;
-  win_n.reserve(10);
-  vector<long> mem;
-  long long sum = 0;
-  int i = 0;
-  while(input.peek() != EOF){
-    sum += dfs(input, line, win_n, mem, i++);
-    // utils::println(sum);
-
+  vector<string> lines;
+  
+  while (getline(input, line)) {
+    lines.push_back(line);
   }
+
+  vector<long> mem(lines.size(), 0);
+  long long sum = 0;
+  
+  for (int i = 0; i < lines.size(); i++) {
+    sum += dfs(lines, mem, i);
+  }
+  
   utils::println(sum);
-  // utils::println(test);
 }

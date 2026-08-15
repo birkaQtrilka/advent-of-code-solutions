@@ -100,6 +100,12 @@ int utils::svtoi(string_view str) {
   return i; 
 }
 
+size_t utils::svtol(string_view str) {
+  size_t i;
+  auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);
+  return i; 
+}
+
 int utils::cvtoi(const vector<char> str) {
   int i;
   auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), i);

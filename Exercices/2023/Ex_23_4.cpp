@@ -46,6 +46,7 @@ void Ex_23_4::Run1(ifstream& input)
   }
   utils::println(sum);
 }
+
 long dfs(const vector<string>& lines, vector<long>& mem, int id, vector<int>& win_n) {
   if (mem[id] != 0) {
     return mem[id];
@@ -122,20 +123,20 @@ void v2(ifstream& input) {
 void Ex_23_4::Run2(ifstream& input)
 {
   cout << "running Ex_23_4 (b)" << '\n';
+  v2(input);
+  // Benchmarker benchmarker(10000);
+  // benchmarker.addFunction("dfs and memoization", [&input]() {
+  //   input.clear();  // Reset stream state
+  //   input.seekg(0, std::ios::beg);  // Rewind to the beginning
+  //   v1(input);
+  // });
+  // benchmarker.addFunction("AI version", [&input]() {
+  //   input.clear();
+  //   input.seekg(0, std::ios::beg);
+  //   v2(input);
+  // });
 
-  Benchmarker benchmarker(10000);
-  benchmarker.addFunction("dfs and memoization", [&input]() {
-    input.clear();  // Reset stream state
-    input.seekg(0, std::ios::beg);  // Rewind to the beginning
-    v1(input);
-  });
-  benchmarker.addFunction("AI version", [&input]() {
-    input.clear();
-    input.seekg(0, std::ios::beg);
-    v2(input);
-  });
-
-  benchmarker.run();
+  // benchmarker.run();
 }
 
 // Starting benchmark with 10000 iterations.

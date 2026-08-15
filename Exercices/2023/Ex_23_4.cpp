@@ -37,8 +37,6 @@ void Ex_23_4::Run1(ifstream& input)
   }
   utils::println(sum);
 }
-// int max_depth = 0;
-// long test = 0;
 long dfs(const vector<string>& lines, vector<long>& mem, int id) {
   if (mem[id] != 0) {
     return mem[id];

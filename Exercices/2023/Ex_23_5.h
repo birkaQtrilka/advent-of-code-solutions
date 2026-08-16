@@ -12,4 +12,6 @@ public:
 
 	void Run1(ifstream& input) override;
 	void Run2(ifstream& input) override;
+  void MySolution(ifstream &input);
+  void AI(ifstream &input);
 };

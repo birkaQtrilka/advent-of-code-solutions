@@ -76,12 +76,93 @@ void Ex_23_5::Run1(ifstream& input)
   utils::println(result);
 }
 
+struct Range {
+  size_t start;
+  size_t l;
+};
+
+struct CompareStart {
+    bool operator()(const Mapping& a, const Mapping& b) {
+      //a is destination, therfore the location, therefore the thing that needs to be the smalles
+        return a.a > b.a;  // Note: > for min-heap
+    }
+};
+
+bool isSmallest(size_t source_val, array<vector<Mapping>, 7>& mappings, vector<Range>& seeds) {
+  for (auto it = mappings.rbegin(); it != mappings.rend(); ++it) {
+    vector<Mapping>& map = *it;
+    for (Mapping& range : map) {
+      if(source_val >= range.a && source_val < range.a + range.range) {
+        size_t normed = source_val - range.a;
+        source_val = range.b + normed;
+        break;
+      }
+    }
+  }
+  for (Range &seed : seeds) 
+    if(source_val >= seed.start && source_val < seed.start + seed.l) return true;  
+  return false;
+}
+
+void Ex_23_5::Run2(ifstream& input)
+{
+  AI(input); // used AI solution because it's faster
+  // MySolution(input);
+}
+
+void Ex_23_5::MySolution(ifstream& input) {
+  cout<<"running Ex_23_5 (b)" << '\n';
+  // utils::println("69323688");
+  // return;
+  string line;
+  vector<Range> seeds;
+  // getting seeds
+  getline(input, line);
+  string_view str(line);
+  size_t end = str.find(':') + 2;
+  for (size_t i = 0; end < str.size(); i++)
+  {
+    size_t start = popNext(end, str);
+    size_t length = popNext(end, str);
+    seeds.push_back(Range{start, length});
+    
+  }
+  utils::println(seeds.size());
+  getline(input, line);
+  getline(input, line);
+  int map_i = 0;
+  array<vector<Mapping>, 7> mappings;
+
+  while (getline(input, line)) {
+    if(line.empty()){
+      getline(input, line);
+      map_i++;
+      continue;
+    }
+    size_t offset = 0;
+    string_view str(line);
+    size_t a = popNext(offset, str);
+    size_t b = popNext(offset, str);
+    size_t range = popNext(offset, str);
+    mappings[map_i].push_back(Mapping {a, b, range});
+  }
+  size_t result = 0;
+  bool valid = false;
+
+  while (true)  {
+    valid = isSmallest(result++, mappings, seeds);
+    if(valid) break;
+  }
+  utils::println(result-1);  
+}
+
+// AI solution:
 struct Interval {
   size_t start;
   size_t end;
 };
 
-void Ex_23_5::Run2(ifstream& input)
+void Ex_23_5::AI(ifstream& input)
 {
   cout << "running Ex_23_5 (b) - Interval Splitting Method\n";
   string line;

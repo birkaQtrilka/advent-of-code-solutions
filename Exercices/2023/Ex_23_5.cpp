@@ -76,55 +76,29 @@ void Ex_23_5::Run1(ifstream& input)
   utils::println(result);
 }
 
-struct Range {
+struct Interval {
   size_t start;
-  size_t l;
+  size_t end;
 };
-
-struct CompareStart {
-    bool operator()(const Mapping& a, const Mapping& b) {
-      //a is destination, therfore the location, therefore the thing that needs to be the smalles
-        return a.a > b.a;  // Note: > for min-heap
-    }
-};
-
-bool isSmallest(size_t source_val, array<vector<Mapping>, 7>& mappings, vector<Range>& seeds) {
-  for (auto it = mappings.rbegin(); it != mappings.rend(); ++it) {
-    vector<Mapping>& map = *it;
-    for (Mapping& range : map) {
-      if(source_val >= range.a && source_val < range.a + range.range) {
-        size_t normed = source_val - range.a;
-        source_val = range.b + normed;
-        break;
-      }
-    }
-  }
-  for (Range &seed : seeds) 
-    if(source_val >= seed.start && source_val < seed.start + seed.l) return true;  
-  return false;
-}
 
 void Ex_23_5::Run2(ifstream& input)
 {
-  cout<<"running Ex_23_5 (b)" << '\n';
-  // utils::println("69323688");
-  // return;
+  cout << "running Ex_23_5 (b) - Interval Splitting Method\n";
   string line;
-  vector<Range> seeds;
-  // getting seeds
+  vector<Interval> current_ranges;
+  
   getline(input, line);
   string_view str(line);
-  size_t end = str.find(':') + 2;
-  for (size_t i = 0; end < str.size(); i++)
-  {
-    size_t start = popNext(end, str);
-    size_t length = popNext(end, str);
-    seeds.push_back(Range{start, length});
-    
+  size_t str_end = str.find(':') + 2;
+  while (str_end < str.size()) {
+    size_t start = popNext(str_end, str);
+    size_t length = popNext(str_end, str);
+    current_ranges.push_back({start, start + length});
   }
-  utils::println(seeds.size());
-  getline(input, line);
-  getline(input, line);
+  
+  getline(input, line); // empty
+  getline(input, line); // "seed-to-soil map:"
+  
   int map_i = 0;
   array<vector<Mapping>, 7> mappings;
 
@@ -132,21 +106,65 @@ void Ex_23_5::Run2(ifstream& input)
     if(line.empty()){
       getline(input, line);
       map_i++;
+      if (map_i >= 7) break;
       continue;
     }
     size_t offset = 0;
-    string_view str(line);
-    size_t a = popNext(offset, str);
-    size_t b = popNext(offset, str);
-    size_t range = popNext(offset, str);
-    mappings[map_i].push_back(Mapping {a, b, range});
+    string_view sv(line);
+    size_t a = popNext(offset, sv);
+    size_t b = popNext(offset, sv);
+    size_t range = popNext(offset, sv);
+    mappings[map_i].push_back(Mapping{a, b, range});
   }
-  size_t result = 0;
-  bool valid = false;
 
-  while (true)  {
-    valid = isSmallest(result++, mappings, seeds);
-    if(valid) break;
+  for (const auto& layer : mappings) {
+    vector<Interval> next_ranges;
+    
+    // Process every range currently in our pool
+    while (!current_ranges.empty()) {
+      Interval r = current_ranges.back();
+      current_ranges.pop_back();
+      
+      bool matched = false;
+      
+      for (const Mapping& m : layer) {
+        size_t m_start = m.b;
+        size_t m_end = m.b + m.range;
+        
+        size_t overlap_start = max(r.start, m_start);
+        size_t overlap_end = min(r.end, m_end);
+        
+        if (overlap_start < overlap_end) {
+          
+          size_t mapped_start = m.a + (overlap_start - m.b);
+          size_t mapped_end = m.a + (overlap_end - m.b);
+          next_ranges.push_back({mapped_start, mapped_end});
+          
+          if (r.start < overlap_start) {
+            current_ranges.push_back({r.start, overlap_start});
+          }
+          
+          if (r.end > overlap_end) {
+            current_ranges.push_back({overlap_end, r.end});
+          }
+          
+          matched = true;
+          break;
+        }
+      }
+      
+      if (!matched) {
+        next_ranges.push_back(r);
+      }
+    }
+    
+    current_ranges = std::move(next_ranges);
   }
-  utils::println(result-1);
+  
+  size_t result = std::numeric_limits<size_t>::max();
+  for (const auto& r : current_ranges) {
+    result = min(result, r.start);
+  }
+  
+  utils::println(result);
 }

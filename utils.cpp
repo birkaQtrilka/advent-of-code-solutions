@@ -136,12 +136,52 @@ void utils::checkNeighbours(
     }
 }
 
-size_t utils::popNext(size_t& offset, string_view str) {
+size_t utils::popNext(size_t& offset, std::string_view str) {
+  // Find next space
   size_t space_pos = str.find(' ', offset);
-  size_t count = (space_pos == string_view::npos) ? (str.size() - offset) : (space_pos - offset);
   
+  // Extract the number portion
+  size_t count = (space_pos == std::string_view::npos) 
+           ? (str.size() - offset) 
+           : (space_pos - offset);
+  
+  // Convert to number
   size_t num = utils::svtol(str.substr(offset, count));
   
-  offset = (space_pos == string_view::npos) ? str.size() : space_pos + 1;
+  // Update offset to the next digit after the space
+  if (space_pos == std::string_view::npos) {
+    offset = str.size();
+  } else {
+    // Start searching after the space
+    auto it = std::find_if(str.begin() + space_pos + 1, str.end(), 
+      [](unsigned char c) { return std::isdigit(c); });
+    offset = (it == str.end()) ? str.size() : (it - str.begin());
+  }
+  
+  return num;
+}
+
+string_view utils::popNextStr(size_t& offset, std::string_view str) {
+  // Find next space
+  size_t space_pos = str.find(' ', offset);
+  
+  // Extract the number portion
+  size_t count = (space_pos == std::string_view::npos) 
+           ? (str.size() - offset) 
+           : (space_pos - offset);
+  
+  // Convert to number
+  string_view num = str.substr(offset, count);
+  
+  // Update offset to the next digit after the space
+  if (space_pos == std::string_view::npos) {
+    offset = str.size();
+  } else {
+    // Start searching after the space
+    auto it = std::find_if(str.begin() + space_pos + 1, str.end(), 
+      [](unsigned char c) { return std::isdigit(c); });
+    offset = (it == str.end()) ? str.size() : (it - str.begin());
+  }
+  
   return num;
 }

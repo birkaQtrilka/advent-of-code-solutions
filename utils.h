@@ -15,6 +15,7 @@ namespace utils {
   int cvtoi(vector<char> str);
   void checkNeighbours(const std::vector<std::string> &grid, size_t x, size_t y, const std::function<void(size_t, size_t)> &callback);
   size_t popNext(size_t &offset, string_view str);
+  string_view popNextStr(size_t &offset, std::string_view str);
   void CoutBoolArr(const vector<bool> &arr);
   template<typename... Args>
   void println(Args... args) {

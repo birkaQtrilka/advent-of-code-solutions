@@ -69,9 +69,11 @@ def main():
     else:
         # Both year and number are provided
         try:
+            if len(args[0]) != 4:
+              print("Error: year needs to be 4 digits long like 2022")
+              sys.exit(1)
             year = int(args[0])
             number = int(args[1])
-            
             # Update and save the config file with the newly provided year
             config["selected_year"] = year
             save_config(config)

@@ -135,3 +135,13 @@ void utils::checkNeighbours(
         }
     }
 }
+
+size_t utils::popNext(size_t& offset, string_view str) {
+  size_t space_pos = str.find(' ', offset);
+  size_t count = (space_pos == string_view::npos) ? (str.size() - offset) : (space_pos - offset);
+  
+  size_t num = utils::svtol(str.substr(offset, count));
+  
+  offset = (space_pos == string_view::npos) ? str.size() : space_pos + 1;
+  return num;
+}

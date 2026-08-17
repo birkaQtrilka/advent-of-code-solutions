@@ -26,4 +26,40 @@ namespace utils {
   void println_d(string& delim, Args... args) {
       ((std::cout << args << delim), ...) << '\n';
   }
+
+  inline bool isDigit(unsigned char c) {
+    return std::isdigit(c);
+}
+
+// Main function with customizable predicate
+template<typename Predicate = decltype(isDigit)>
+std::string_view popNextStr(size_t& offset, std::string_view str, Predicate pred = isDigit) {
+    // Find next space
+    size_t space_pos = str.find(' ', offset);
+    
+    // Extract the number portion
+    size_t count = (space_pos == std::string_view::npos) 
+             ? (str.size() - offset) 
+             : (space_pos - offset);
+    
+    // Convert to number
+    std::string_view result = str.substr(offset, count);
+    
+    // Update offset to the next valid character after the space
+    if (space_pos == std::string_view::npos) {
+        offset = str.size();
+    } else {
+        // Start searching after the space
+        auto it = std::find_if(str.begin() + space_pos + 1, str.end(), 
+            [&pred](unsigned char c) { return pred(c); });
+        offset = (it == str.end()) ? str.size() : (it - str.begin());
+    }
+    
+    return result;
+}
+
+// Overload for default predicate (no need to specify)
+inline std::string_view popNextStr(size_t& offset, std::string_view str) {
+    return popNextStr(offset, str, isDigit);
+}
 }

@@ -13,6 +13,7 @@ struct ChallengeData {
 class Registry {
 public:
     static void registerClass(ChallengeData data);
+    static std::pair<int, int> determineYearAndDay();
     static void instantiateAndRun();
     static void instantiateAndRunLastOrGivenFile(const std::string& file = "");
 };

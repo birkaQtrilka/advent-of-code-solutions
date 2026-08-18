@@ -2,38 +2,39 @@
 #include <unordered_map>
 #include "../../utils.h"
 
-struct Connections {
-  vector<string> paths;
-  int ends;
+bool isNotSpace(unsigned char c) { 
+  return !std::isspace(c); 
 };
-// assuming input doesn't cycle
-int FoundOut(const string& path, unordered_map<string, Connections>& map) {
-  Connections& val = map[path];
-  if(val.paths[0] == "out") {
-    val.ends = 1;
+
+int getId(const string& name, unordered_map<string, int>& nameToId) {
+  if (nameToId.find(name) == nameToId.end()) {
+    int newId = nameToId.size();
+    nameToId[name] = newId;
+  }
+  return nameToId[name];
+};
+
+int FoundOut(int u, vector<int>& memo, const vector<vector<int>>& adj, int outID) {
+  if(u == outID) {
+    memo[u] = 1;
     return 1;
   }
-  if(val.ends != -1) return val.ends;
-  val.ends = 0;
-  for (string& p: val.paths) {
-    val.ends += FoundOut(p, map);
+  if(memo[u] != -1) return memo[u];
+  int res = 0;
+  for (int p: adj[u]) {
+    res += FoundOut(p, memo, adj, outID);
   }
 
-  return val.ends;
+  return memo[u] = res;
 }
-// might need to start from outs to you? could be the same issue if it cycles
 
 void Ex_25_11::Run1(ifstream& input)
 {
-  return;
   cout<< "running Ex_25_11"<< '\n';
   string line;
   long long sum = 0;
-  unordered_map<string, Connections> connections;
-
-  auto isNotSpace = [](unsigned char c) { 
-    return !std::isspace(c); 
-  };
+  unordered_map<string, int> nameToId;
+  vector<vector<int>> adj;
 
   while (getline(input, line)) {
     string_view str(line);
@@ -45,10 +46,18 @@ void Ex_25_11::Run1(ifstream& input)
       auto res = utils::popNextStr(offset, str, isNotSpace);
       paths.push_back(string(res));
     }
-    connections.emplace(key, Connections {paths, -1});
+    int u = getId(string(key), nameToId);
+    if (u >= adj.size()) adj.resize(u + 1);
+
+    for (const string& p_name : paths) {
+      adj[u].push_back(getId(p_name, nameToId));
+    }
   }
 
-  sum = FoundOut("you", connections);
+  vector<int> memoized(nameToId.size(), -1);
+  int youID = nameToId["you"];
+  int outID = nameToId["out"]; 
+  sum = FoundOut(youID, memoized, adj, outID);
   utils::println(sum);  
 }
 
@@ -59,49 +68,48 @@ struct Memoized {
   long long total;
 };
 
-struct Connections2 {
-  vector<string> paths;
-  Memoized mem;
+struct Context {
+    int startId;
+    int fftId;
+    int dacId;
+    int outId;
 };
 
-
-Memoized FoundOut2(const string& path, unordered_map<string, Connections2>& map) {
-  Connections2& val = map[path];
-  if(val.paths[0] == "out") {
-    val.mem.total = 1;
-    return val.mem;
+Memoized FoundOut2(int u, const vector<vector<int>>& adj, vector<Memoized>& memo, const Context& ctx) {
+  if (u == ctx.outId) {
+    return {0, 0, 0, 1}; // total = 1
   }
-  if(val.mem.total != -1) return val.mem;
-  val.mem.total = 0;
-  bool isA = path == "fft";
-  bool isB = path == "dac";
-  for (const string& p: val.paths) {
-    Memoized found = FoundOut2(p, map);
-    val.mem.total += found.total;
-    val.mem.a += found.a;
-    val.mem.b += found.b;
-    val.mem.ab += found.ab;
+    
+  if (memo[u].total != -1) return memo[u];
+  Memoized res = {0, 0, 0, 0};
+
+  bool isA = u == ctx.fftId;
+  bool isB = u == ctx.dacId;
+
+  for (int p: adj[u]) {
+    Memoized found = FoundOut2(p, adj, memo, ctx);
+    res.total += found.total;
+    res.a += found.a;
+    res.b += found.b;
+    res.ab += found.ab;
     
   }
-  val.mem.a += isA * val.mem.total ;
-  val.mem.b += isB * val.mem.total ;
   if(isA) {
-    val.mem.ab = val.mem.b;
+    res.ab += res.b;
+    res.a = res.total;
   } else if(isB) {
-    val.mem.ab = val.mem.a;
+    res.ab += res.a;
+    res.b = res.total;
   }
-  return val.mem;
+  return memo[u] = res;
 }
 void Ex_25_11::Run2(ifstream& input)
 {
   cout<<"running Ex_25_11 (b)" << '\n';
-  
-  string line;
-  unordered_map<string, Connections2> connections;
+  unordered_map<string, int> nameToId;
 
-  auto isNotSpace = [](unsigned char c) { 
-    return !std::isspace(c); 
-  };
+  string line;
+  vector<vector<int>> adj; 
 
   while (getline(input, line)) {
     string_view str(line);
@@ -113,9 +121,23 @@ void Ex_25_11::Run2(ifstream& input)
       auto res = utils::popNextStr(offset, str, isNotSpace);
       paths.push_back(string(res));
     }
-    connections.emplace(key, Connections2 {paths, Memoized {0,0,0,-1}});
+    int u = getId(string(key), nameToId);
+    if (u >= adj.size()) adj.resize(u + 1);
+
+    for (const string& p_name : paths) {
+      adj[u].push_back(getId(p_name, nameToId));
+    }
+
   }
 
-  Memoized found = FoundOut2("svr", connections);
-  utils::println(found.ab);  
+  Context ctx;
+  ctx.startId = nameToId["svr"];
+  ctx.fftId   = nameToId["fft"];
+  ctx.dacId   = nameToId["dac"];
+  ctx.outId   = nameToId["out"];
+
+  vector<Memoized> memo(nameToId.size(), {0, 0, 0, -1});
+
+  Memoized result = FoundOut2(ctx.startId, adj, memo, ctx);
+  utils::println(result.ab);
 }

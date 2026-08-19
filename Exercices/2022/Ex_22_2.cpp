@@ -1,56 +1,62 @@
 #include "Ex_22_2.h"
 #include "../../utils.h"
 
+// 0: Rock, 1: Paper, 2: Scissors
+
 void Ex_22_2::Run1(ifstream& input)
 {
-  cout<<"running Ex_22_2"<< '\n';
+  cout << "running Ex_22_2 Part 1\n";
   string line;
   long long sum = 0;
-  //-65
+      
   while (getline(input, line)) {
-    char op = line[0];
-    char me = line[2];
-    int op_code = op - 'A';
-    int me_code = me - 'X';
-    sum += me_code + 1;
-    if(op_code == me_code) {
-      // draw
-      sum += 3;
-    }
-    else if((op_code == 0 && me_code == 1) || (op_code == 1 && me_code == 2) || (op_code == 2 && me_code == 0)) {
-      // win
-      sum += 6;
-    }
-    // else {
-    //   // loss
-    // }
+    if (line.length() < 3) continue;
+    
+    int op = line[0] - 'A';
+    int me = line[2] - 'X';
+    
+    int shape_score = me + 1;
+    int outcome_score = 0;
+    
+    if (op == me) {
+      outcome_score = 3; // Draw
+    } else if ((op + 1) % 3 == me) {
+      outcome_score = 6; // Win
+    } 
+
+    sum += shape_score + outcome_score;
   }
+      
   utils::println(sum);
 }
 
 void Ex_22_2::Run2(ifstream& input)
 {
+  cout << "running Ex_22_2 Part 2\n";
   string line;
   long long sum = 0;
-  //-65
+      
   while (getline(input, line)) {
-    char op = line[0];
-    char me = line[2];
-    int op_code = op - 'A';
-    int me_code = me - 'X';
-    sum++;
-    if(me_code == 1) {
-      // draw
-      sum += 3 + op_code;
+    if (line.length() < 3) continue;
+    
+    int op = line[0] - 'A';
+    int outcome = line[2] - 'X';
+    
+    int outcome_score = outcome * 3;
+    int me = 0;
+    
+    if (outcome == 1) { // Draw
+      me = op;
+    } else if (outcome == 2) { // Win
+      me = (op + 1) % 3;
+    } else { // Lose
+      me = (op + 2) % 3;
     }
-    else if(me_code == 2) {
-      // win
-      sum += 6 + ((op_code + 1) % 3);
-    }
-    else {
-      // loss
-      sum += (op_code + 2) % 3;
-    }
+    
+    int shape_score = me + 1;
+    
+    sum += shape_score + outcome_score;
   }
+      
   utils::println(sum);
 }

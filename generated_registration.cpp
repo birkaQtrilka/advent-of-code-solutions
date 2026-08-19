@@ -11,6 +11,7 @@
 #include ".\Exercices\2025\Ex_25_9.h"
 #include ".\Exercices\2025\Ex_25_10.h"
 #include ".\Exercices\2025\Ex_25_11.h"
+#include ".\Exercices\2025\Ex_25_12.h"
 
 void registerClasses() {
 	REGISTER_DERIVED_CLASS(Ex_25_1, "Inputs/Ex_25_1_input.txt");
@@ -24,4 +25,5 @@ void registerClasses() {
 	REGISTER_DERIVED_CLASS(Ex_25_9, "Inputs/Ex_25_9_input.txt");
 	REGISTER_DERIVED_CLASS(Ex_25_10, "Inputs/Ex_25_10_input.txt");
 	REGISTER_DERIVED_CLASS(Ex_25_11, "Inputs/Ex_25_11_input.txt");
+	REGISTER_DERIVED_CLASS(Ex_25_12, "Inputs/Ex_25_12_input.txt");
 }

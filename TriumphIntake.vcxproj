@@ -150,6 +150,7 @@
     <ClCompile Include="Exercices\2025\Ex_25_11.cpp" />
     <ClCompile Include="Exercices\2025\Ex_25_12.cpp" />
     <ClCompile Include="Exercices\2022\Ex_22_2.cpp" />
+    <ClCompile Include="Exercices\2022\Ex_22_3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exercices\Challenge.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Exercices\2025\Ex_25_11.h" />
     <ClInclude Include="Exercices\2025\Ex_25_12.h" />
     <ClInclude Include="Exercices\2022\Ex_22_2.h" />
+    <ClInclude Include="Exercices\2022\Ex_22_3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="registry-generator.py" />
@@ -211,6 +213,7 @@
     <Text Include="Inputs\Ex_25_11_input.txt" />
     <Text Include="Inputs\Ex_25_12_input.txt" />
     <Text Include="Inputs\Ex_22_2_input.txt" />
+    <Text Include="Inputs\Ex_22_3_input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
